@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">News</string>
+    <string name="vdots">⋮</string>
+    <string name="Item">item</string>
+    <string name="search_hint">搜索新闻</string>
+    <string name="search_title">search</string>
+    <string name="action_settings">settings</string>
+    <string name="share">Share...</string>
+    <string name="details">新闻详情</string>
+    <string name="news">新闻列表</string>
+    <string name="title_activity_tmp">tmpActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="title_activity_tmpbottom">tmpbottom</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="hello_home_second">Hello HomeSecondFragment. Arg: %1$s</string>
+    <string name="hello_dashboard_second">Hello HomeSecondFragment. Arg: %1$s</string>
+    <string name="hello_notifications_second">Hello HomeSecondFragment. Arg: %1$s</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string name="home_second">Home Second</string>
+</resources>
