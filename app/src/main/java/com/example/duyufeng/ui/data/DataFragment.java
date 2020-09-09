@@ -41,34 +41,3 @@ public class DataFragment extends Fragment {
 
     }
 }
-/*
-public class NewsFragment extends Fragment {
-
-    private HomeViewModel homeViewModel;
-    SectionsPagerAdapter sectionsPagerAdapter;
-
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_news, container, false);
-
-
-        return root;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        sectionsPagerAdapter = new SectionsPagerAdapter(view.getContext(), getFragmentManager());
-        ViewPager viewPager = view.findViewById(R.id.view_pager);
-        viewPager.setAdapter(sectionsPagerAdapter);
-        TabLayout tabs = view.findViewById(R.id.tabs);
-        tabs.setupWithViewPager(viewPager);
-        for (int i = 0; i < sectionsPagerAdapter.getCount(); ++i)
-            sectionsPagerAdapter.getItem(i);
-
-    }
-}
-
- */

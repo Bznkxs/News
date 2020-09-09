@@ -1,8 +1,10 @@
 package com.example.duyufeng;
 
+import android.content.res.loader.ResourcesLoader;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+// TODO
 public class SimpleNews implements News  {
     String name, date, author, abst;
     String content;
@@ -53,7 +55,14 @@ public class SimpleNews implements News  {
     @Override
     public String getContent() {
         if (content == null) {
-            content = "";
+
+            try {
+                Thread.sleep(300); // 模拟加载
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            content = "沃尔沃阿娇；啊；是的减肥\n";// some random string
+
         }
         return content;
     }

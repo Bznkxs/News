@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 
+// TODO: 这是搜索界面。需要完成doMySearch()函数。
 public class SearchActivity extends AppCompatActivity {
 
     @Override
@@ -55,7 +56,10 @@ public class SearchActivity extends AppCompatActivity {
 
 
     void doMySearch(String query) {
-        Toast.makeText(this, "Query: "+query, Toast.LENGTH_SHORT).show();
+        NewsItemList list;
+        list = (NewsItemList)getApplication();
+        // TODO: list是我们的新闻列表。用list来搜索。
+        Toast.makeText(this, "Query: "+query + "; 现有新闻数=" + list.list.size(), Toast.LENGTH_SHORT).show();
 
     }
 
