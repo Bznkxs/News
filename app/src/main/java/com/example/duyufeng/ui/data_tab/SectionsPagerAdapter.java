@@ -1,4 +1,4 @@
-package com.example.duyufeng.ui.main;
+package com.example.duyufeng.ui.data_tab;
 
 import android.content.Context;
 import androidx.annotation.Nullable;
@@ -15,7 +15,7 @@ import com.example.duyufeng.R;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3};
+    private static final int[] TAB_TITLES = new int[]{R.string.domestic, R.string.domestic, R.string.international};
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
@@ -27,12 +27,14 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
-        switch (position) {
+        switch (position)
+        {
             case 0:
-                return NewsTabFragment.newInstance();
             case 1:
+                return DomesticFragment.newInstance(position);
+
             case 2:
-                return Tabtwo.newInstance();
+                return International.newInstance();
             default:
                 return null;
         }

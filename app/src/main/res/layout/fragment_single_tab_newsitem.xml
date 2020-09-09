@@ -5,10 +5,10 @@
                                                    android:id="@+id/constraintLayout"
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
-                                                   tools:context=".ui.main.PlaceholderFragment">
+                                                   tools:context=".ui.main.NewsTabFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:id="@+id/recyclerView"
             app:layout_constraintEnd_toEndOf="parent"

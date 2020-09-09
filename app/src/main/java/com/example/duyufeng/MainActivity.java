@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView = null;
     LinearLayoutManager layoutManager;
     Toolbar myToolbar;
-    TabLayout tabLayout;
+    //TabLayout tabLayout;
     BottomNavigationView navView;
     TextView titleView;
     SearchView searchView;
@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
         // set toolbar working
         myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-        tabLayout = findViewById(R.id.tabs);
         titleView = findViewById(R.id.title);
         navView = findViewById(R.id.nav_view);
 
@@ -86,25 +85,20 @@ public class MainActivity extends AppCompatActivity {
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
                 switch (destination.getId()) {
                     case R.id.navigation_news:
-                        tabLayout.setVisibility(View.VISIBLE);
                         setTitle(R.string.title_news);
                         break;
                     case R.id.navigation_data:
                         setTitle(R.string.title_data);
-                        tabLayout.setVisibility(View.GONE);
 
                         break;
                     case R.id.navigation_trend:
                         setTitle(R.string.title_trend);
-                        tabLayout.setVisibility(View.GONE);
                         break;
                     case R.id.navigation_graph:
                         setTitle(R.string.title_graph);
-                        tabLayout.setVisibility(View.GONE);
                         break;
                     case R.id.navigation_settings:
                         setTitle(R.string.title_settings);
-                        tabLayout.setVisibility(View.GONE);
                         break;
                 }
             }

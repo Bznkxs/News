@@ -21,13 +21,15 @@ public class TrendFragment extends Fragment {
         trendViewModel =
                 ViewModelProviders.of(this).get(TrendViewModel.class);
         View root = inflater.inflate(R.layout.fragment_trend, container, false);
-        final TextView textView = root.findViewById(R.id.text_dashboard);
+        /*final TextView textView = root.findViewById(R.id.text_dashboard);
         trendViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
             }
         });
+
+         */
         return root;
     }
 }

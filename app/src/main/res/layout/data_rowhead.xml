@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal">
+    <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" android:stretchColumns="*">
+
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <TextView
+                    android:text="@string/region"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" android:id="@+id/textRegion" android:textAlignment="center"
+                    android:gravity="center|center_vertical" android:textColor="#000000"/>
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <TextView
+                        android:text="@string/active"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/textActiveCases"
+                        android:textAlignment="center" android:textColor="#FF8522"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <TextView
+                        android:text="@string/overall"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/textOverallCases"
+                        android:textAlignment="center" android:textColor="#BE0D00"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <TextView
+                        android:text="@string/death"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/textDeaths"
+                        android:textAlignment="center" android:textColor="#4D000000"
+                        android:textAllCaps="false"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <TextView
+                        android:text="@string/cured"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/textCured"
+                        android:textAlignment="center" android:textColor="#00AD07"/>
+            </LinearLayout>
+        </TableRow>
+    </TableLayout>
+</LinearLayout>
+

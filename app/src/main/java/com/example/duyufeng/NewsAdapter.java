@@ -4,11 +4,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.LinkedList;
 
-public class NewsAdapter extends RecyclerView.Adapter<com.example.duyufeng.NewsAdapter.MyViewHolder> {
+public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> {
     private LinkedList<NewsItem> data;
 
     // Provide a reference to the views for each data item
@@ -50,6 +51,7 @@ public class NewsAdapter extends RecyclerView.Adapter<com.example.duyufeng.NewsA
         MyViewHolder holder = new MyViewHolder(convertView);
         return holder;
     }
+
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {

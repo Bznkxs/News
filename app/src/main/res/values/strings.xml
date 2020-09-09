@@ -1,4 +1,6 @@
 <resources>
+    <string name="domestic">国内</string>
+    <string name="international">国际</string>
     <string name="app_name">News</string>
     <string name="vdots">⋮</string>
     <string name="Item">item</string>
@@ -25,4 +27,9 @@
     <string name="home_second">Home Second</string>
     <string name="title_graph">相关信息</string>
     <string name="title_settings">设置</string>
+    <string name="region">地区</string>
+    <string name="active">现有确诊</string>
+    <string name="cured">治愈</string>
+    <string name="death">死亡</string>
+    <string name="overall">累计确诊</string>
 </resources>
