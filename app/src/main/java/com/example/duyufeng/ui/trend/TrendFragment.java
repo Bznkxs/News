@@ -1,4 +1,4 @@
-package com.example.duyufeng.ui.dashboard;
+package com.example.duyufeng.ui.trend;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,17 +12,17 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import com.example.duyufeng.R;
 
-public class DashboardFragment extends Fragment {
+public class TrendFragment extends Fragment {
 
-    private DashboardViewModel dashboardViewModel;
+    private TrendViewModel trendViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        dashboardViewModel =
-                ViewModelProviders.of(this).get(DashboardViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        trendViewModel =
+                ViewModelProviders.of(this).get(TrendViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_trend, container, false);
         final TextView textView = root.findViewById(R.id.text_dashboard);
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        trendViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

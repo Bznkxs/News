@@ -18,9 +18,11 @@
     <string name="hello_home_second">Hello HomeSecondFragment. Arg: %1$s</string>
     <string name="hello_dashboard_second">Hello HomeSecondFragment. Arg: %1$s</string>
     <string name="hello_notifications_second">Hello HomeSecondFragment. Arg: %1$s</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_news">新闻</string>
+    <string name="title_trend">聚类</string>
+    <string name="title_data">数据</string>
 
     <string name="home_second">Home Second</string>
+    <string name="title_graph">相关信息</string>
+    <string name="title_settings">设置</string>
 </resources>

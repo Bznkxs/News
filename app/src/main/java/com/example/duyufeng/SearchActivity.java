@@ -8,6 +8,7 @@ import android.provider.SearchRecentSuggestions;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.Toast;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
@@ -22,6 +23,9 @@ public class SearchActivity extends AppCompatActivity {
         // set toolbar working
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+
+        ActionBar abar = getSupportActionBar();
+        abar.setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {

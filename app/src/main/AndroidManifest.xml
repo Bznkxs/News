@@ -50,7 +50,7 @@
         </activity>
         <provider
                 android:name=".MySuggestionProvider"
-                android:authorities="com.example.MySuggestionProvider"
+                android:authorities="com.example.providers.MySuggestionProvider"
                 android:exported="false" />
     </application>
 

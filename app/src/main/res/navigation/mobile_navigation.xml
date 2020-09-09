@@ -3,41 +3,37 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/mobile_navigation"
-            app:startDestination="@+id/navigation_home">
+            app:startDestination="@+id/navigation_news">
 
     <fragment
-            android:id="@+id/navigation_home"
-            android:name="com.example.duyufeng.ui.home.HomeFragment"
-            android:label="@string/title_home"
-            tools:layout="@layout/fragment_home">
-
-        <action
-                android:id="@+id/action_HomeFragment_to_HomeSecondFragment"
-                app:destination="@id/navigation_home_second"/>
-    </fragment>
-    <fragment
-            android:id="@+id/navigation_home_second"
-            android:name="com.example.duyufeng.ui.home.HomeSecondFragment"
-            android:label="@string/home_second"
-            tools:layout="@layout/fragment_home_second">
-        <action
-                android:id="@+id/action_HomeSecondFragment_to_HomeFragment"
-                app:destination="@id/navigation_home"/>
-
-        <argument
-                android:name="myArg"
-                app:argType="string"/>
+            android:id="@+id/navigation_news"
+            android:name="com.example.duyufeng.ui.home_news.NewsFragment"
+            android:label="@string/title_news"
+            tools:layout="@layout/fragment_news">
     </fragment>
 
-    <fragment
-            android:id="@+id/navigation_dashboard"
-            android:name="com.example.duyufeng.ui.dashboard.DashboardFragment"
-            android:label="@string/title_dashboard"
-            tools:layout="@layout/fragment_dashboard"/>
 
     <fragment
-            android:id="@+id/navigation_notifications"
-            android:name="com.example.duyufeng.ui.notifications.NotificationsFragment"
-            android:label="@string/title_notifications"
-            tools:layout="@layout/fragment_notifications"/>
+            android:id="@+id/navigation_trend"
+            android:name="com.example.duyufeng.ui.trend.TrendFragment"
+            android:label="@string/title_trend"
+            tools:layout="@layout/fragment_trend"/>
+
+    <fragment
+            android:id="@+id/navigation_data"
+            android:name="com.example.duyufeng.ui.data.DataFragment"
+            android:label="@string/title_data"
+            tools:layout="@layout/fragment_data"/>
+
+    <fragment
+            android:id="@+id/navigation_graph"
+            android:name="com.example.duyufeng.ui.graph.GraphFragment"
+            android:label="@string/title_graph"
+            tools:layout="@layout/fragment_graph"/>
+
+    <fragment
+            android:id="@+id/navigation_settings"
+            android:name="com.example.duyufeng.ui.settings.SettingsFragment"
+            android:label="@string/title_settings"
+            tools:layout="@layout/fragment_settings"/>
 </navigation>

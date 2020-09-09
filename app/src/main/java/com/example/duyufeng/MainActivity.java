@@ -4,15 +4,20 @@ import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.navigation.NavDestination;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
-import com.example.duyufeng.ui.main.SectionsPagerAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -25,6 +30,12 @@ import com.google.android.material.tabs.TabLayout;
 public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView = null;
     LinearLayoutManager layoutManager;
+    Toolbar myToolbar;
+    TabLayout tabLayout;
+    BottomNavigationView navView;
+    TextView titleView;
+    SearchView searchView;
+    MenuInflater inflater;
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
@@ -32,12 +43,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
+        inflater = getMenuInflater();
         inflater.inflate(R.menu.searchtime_actionbar, menu);
 
         // Get the SearchView and set the searchable configuration
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.search_bar).getActionView();
+        searchView = (SearchView) menu.findItem(R.id.search_bar).getActionView();
         // Assumes current activity is the searchable activity
         searchView.setSearchableInfo(searchManager.getSearchableInfo(new ComponentName(this, SearchActivity.class)));
         searchView.setQueryHint(getResources().getString(R.string.search_hint));
@@ -51,25 +62,66 @@ public class MainActivity extends AppCompatActivity {
 
 
         // set toolbar working
-        Toolbar myToolbar = findViewById(R.id.my_toolbar);
+        myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+        tabLayout = findViewById(R.id.tabs);
+        titleView = findViewById(R.id.title);
+        navView = findViewById(R.id.nav_view);
 
-
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-
+        Resources resource=getBaseContext().getResources();
+        ColorStateList csl=(ColorStateList)resource.getColorStateList(R.color.navigation_menu_item_color);
+        navView.setItemTextColor(csl);
+        navView.getMenu().getItem(0).setChecked(true);
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
+        // 即：Up button "<-" will not be shown
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
+                R.id.navigation_news, R.id.navigation_trend, R.id.navigation_data, R.id.navigation_graph, R.id.navigation_settings)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
+                switch (destination.getId()) {
+                    case R.id.navigation_news:
+                        tabLayout.setVisibility(View.VISIBLE);
+                        setTitle(R.string.title_news);
+                        break;
+                    case R.id.navigation_data:
+                        setTitle(R.string.title_data);
+                        tabLayout.setVisibility(View.GONE);
+
+                        break;
+                    case R.id.navigation_trend:
+                        setTitle(R.string.title_trend);
+                        tabLayout.setVisibility(View.GONE);
+                        break;
+                    case R.id.navigation_graph:
+                        setTitle(R.string.title_graph);
+                        tabLayout.setVisibility(View.GONE);
+                        break;
+                    case R.id.navigation_settings:
+                        setTitle(R.string.title_settings);
+                        tabLayout.setVisibility(View.GONE);
+                        break;
+                }
+            }
+        });
 
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
 
+
+    }
+
+
+    @Override
+    public void setTitle(int resourceId) {
+        super.setTitle(resourceId);
+        titleView.setText(resourceId);
     }
 
     public void toDetailView(View view) {
