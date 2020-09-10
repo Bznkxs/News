@@ -15,7 +15,7 @@ import com.example.duyufeng.R;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.domestic, R.string.domestic, R.string.international};
+    private static final int[] TAB_TITLES = new int[]{R.string.domestic, R.string.international};
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
@@ -30,10 +30,9 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         switch (position)
         {
             case 0:
-            case 1:
                 return DomesticFragment.newInstance(position);
 
-            case 2:
+            case 1:
                 return InternationalFragment.newInstance();
             default:
                 return null;

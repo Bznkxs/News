@@ -36,8 +36,8 @@ public class NewsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        sectionsPagerAdapter = new SectionsPagerAdapter(view.getContext(), getFragmentManager());
+        sectionsPagerAdapter = new SectionsPagerAdapter(view.getContext(), getChildFragmentManager());
+        //sectionsPagerAdapter = new SectionsPagerAdapter(view.getContext(), getFragmentManager());
         sectionsPagerAdapter.setConfiguration(((myApplication) getActivity().getApplication()).tabConfig);
         ViewPager viewPager = view.findViewById(R.id.view_pager_news);
         viewPager.setAdapter(sectionsPagerAdapter);

@@ -32,7 +32,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return NewsTabFragment.newInstance(0);
             case 1:
-            case 2:
                 return NewsTabFragment.newInstance(1);
             default:
                 return null;
