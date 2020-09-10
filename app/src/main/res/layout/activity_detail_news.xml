@@ -31,12 +31,12 @@
                     android:layout_height="wrap_content" android:id="@+id/Title"
                     android:textSize="24sp" android:textColor="@color/config_color_black"
                     android:layout_marginStart="13dp"
-                    android:layout_marginTop="27dp"/>
+                    android:layout_marginTop="27dp" android:textStyle="bold"/>
             <TextView
                     android:text="author time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/affix"
-                    android:layout_marginStart="17dp"/>
+                    android:layout_marginStart="17dp" android:paddingTop="20dp" android:paddingBottom="10dp"/>
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

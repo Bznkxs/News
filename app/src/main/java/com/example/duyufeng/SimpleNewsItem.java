@@ -1,3 +1,4 @@
+/*
 package com.example.duyufeng;
 
 import android.os.Parcel;
@@ -58,35 +59,8 @@ public class SimpleNewsItem implements NewsItem {
         return news;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    public void writeToParcel(Parcel out, int flags) {
-        out.writeString(name);
-        out.writeString(date);
-        out.writeString(author);
-        out.writeString(abst);
-        out.writeParcelable(news, flags);
-    }
-
-    public static final Parcelable.Creator<NewsItem> CREATOR
-            = new Parcelable.Creator<NewsItem>() {
-        public NewsItem createFromParcel(Parcel in) {
-            return new com.example.duyufeng.SimpleNewsItem(in);
-        }
-
-        public NewsItem[] newArray(int size) {
-            return new com.example.duyufeng.SimpleNewsItem[size];
-        }
-    };
-
-    public SimpleNewsItem(Parcel in) {
-        name = in.readString();
-        date = in.readString();
-        author = in.readString();
-        abst = in.readString();
-        news = in.readParcelable(news.getClass().getClassLoader());
-    }
 }
+
+
+ */

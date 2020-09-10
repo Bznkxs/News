@@ -16,6 +16,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.io.IOException;
+import java.util.LinkedList;
+
 
 public class CacheActivity extends AppCompatActivity {
 
@@ -40,7 +43,14 @@ public class CacheActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new NewsAdapter(list.list, NewsItem.Cached);
+
+        LinkedList<News> linkedList = new LinkedList<>();
+        for (News v : list.provider.pool) {
+            if (v.isSaved())
+                linkedList.add(v);
+        }
+        adapter = new NewsAdapter(linkedList);
+        adapter.showCacheButton = false;
         recyclerView.setAdapter(adapter);
     }
 
@@ -81,12 +91,16 @@ public class CacheActivity extends AppCompatActivity {
             button1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    for (NewsItem i : adapter.getData()) {
-                        i.getNews().removeContent();
+                    for (News i : adapter.getData()) {
+                        try {
+                            i.removeContent();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
-                    adapter = new NewsAdapter(list.list, NewsItem.Cached);
+                    adapter = new NewsAdapter(new LinkedList<>());
                     recyclerView.setAdapter(adapter);
-                    Toast.makeText(view.getContext(), R.string.delete_complete, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(view.getContext(), R.string.delete_cache, Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
             });
@@ -108,8 +122,7 @@ public class CacheActivity extends AppCompatActivity {
         // Do something in response to button
 
         Intent intent = new Intent(this, DetailNewsActivity.class);
-        NewsItem item = ((NewsItemLayout)(view.getParent().getParent().getParent().getParent())).item;
-        intent.putExtra(String.valueOf(R.string.Item), item.getNews());
+        list.detailNews = ((NewsItemLayout)(view.getParent().getParent().getParent().getParent())).item;
         startActivity(intent);
     }
 

@@ -1,26 +1,28 @@
 package com.example.duyufeng.ui.home_news;
 
+import android.content.Context;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import com.example.duyufeng.NewsItem;
-import com.example.duyufeng.myApplication;
-import com.example.duyufeng.SimpleNews;
-import com.example.duyufeng.SimpleNewsItem;
+import com.example.duyufeng.*;
 
 import java.util.LinkedList;
 
 public class NewsViewModel extends ViewModel {
-    // TODO: 这个的用法是xxx.list，可以当作LinkedList来使用。
-    private LinkedList<NewsItem> newsItemList;
-    private MutableLiveData<LinkedList<NewsItem>> newsItems;
 
-    public NewsViewModel() {}
+    private LinkedList<News> newsItemList;
+    private MutableLiveData<LinkedList<News>> newsItems;
+
+
+    public NewsProvider provider; // 需要赋值给它
+
+
+    public NewsViewModel() { newsItemList = new LinkedList<>(); }
     public NewsViewModel(NewsViewModel model) {
         newsItemList = model.newsItemList;
         newsItems = model.newsItems;
     }
-    public LiveData<LinkedList<NewsItem>> getNewsItems() {
+    public LiveData<LinkedList<News>> getNewsItems() {
         if (newsItems == null) {
             newsItems = new MutableLiveData<>();
             loadLatestNewsItems();
@@ -32,28 +34,14 @@ public class NewsViewModel extends ViewModel {
     // 步骤1：更新newsItemList
     // 步骤2：更新newsItems（最后一句话）
     public void loadLatestNewsItems() {
-        /*
+        if (newsItemList == null)
+            newsItemList = new LinkedList<>();
         try {
-            Thread.sleep(100); // 模拟加载时间，可以删掉
-        } catch (InterruptedException e) {
+            provider.refreshNews(20);
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
-         */
-        int n = 10;
-        if (newsItemList == null) {
-            newsItemList = new LinkedList<NewsItem>();
-        }
-        for (int i = 0; i < n; ++i) {
-            newsItemList.add(new SimpleNewsItem(
-                    new SimpleNews("news" + newsItemList.size(),
-                            "2018-01-01",
-                            "Bznkxs" + i,
-                            "abst",
-                            null
-                            )
-            ));
-        }
+        newsItemList.addAll(provider.pool);
         newsItems.setValue(newsItemList); // 步骤2
     }
 
@@ -61,6 +49,7 @@ public class NewsViewModel extends ViewModel {
     // 步骤1：更新newsItemList
     // 步骤2：更新newsItems（最后一句话）
     public void loadMoreNewsItems() {
+        /*
         try {
             Thread.sleep(10);
         } catch (InterruptedException e) {
@@ -80,6 +69,14 @@ public class NewsViewModel extends ViewModel {
                     )
             ));
         }
+
+         */
+        try {
+            provider.moreNews(20);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        newsItemList.addAll(provider.pool);
         newsItems.setValue(newsItemList);
     }
 

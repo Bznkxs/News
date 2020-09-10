@@ -16,7 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.duyufeng.*;
 import com.example.duyufeng.ui.home_news.NewsViewModel;
+import org.json.JSONException;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Objects;
 import java.util.Timer;
@@ -40,7 +42,13 @@ public class NewsTabFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dataViewModel = new NewsViewModel(new ViewModelProvider(getActivity()).get(NewsViewModel.class));
+        dataViewModel = new ViewModelProvider(getActivity()).get(NewsViewModel.class);
+        try {
+            dataViewModel.provider = new NewsProvider(this.getActivity().getApplicationContext());
+            ((myApplication)getActivity().getApplication()).provider = dataViewModel.provider;
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -129,12 +137,7 @@ public class NewsTabFragment extends Fragment {
         });
 
 
-        dataViewModel.getNewsItems().observe(getViewLifecycleOwner(), new Observer<LinkedList<NewsItem>>() {
-            @Override
-            public void onChanged(@Nullable LinkedList<NewsItem> s) {
 
-            }
-        });
 
         myApplication list = (myApplication)(Objects.requireNonNull(getActivity()).getApplication());
         list.list = dataViewModel.getNewsItems().getValue();

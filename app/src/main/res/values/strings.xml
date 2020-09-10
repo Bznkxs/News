@@ -8,6 +8,7 @@
     <string name="search_word">search_word</string>
     <string name="search_title">搜索</string>
     <string name="delete_complete">已删除搜索数据。</string>
+    <string name="delete_cache">已删除缓存。</string>
     <string name="action_settings">settings</string>
     <string name="share">分享…</string>
     <string name="details">新闻详情</string>

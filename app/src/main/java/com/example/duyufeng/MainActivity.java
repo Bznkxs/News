@@ -128,9 +128,7 @@ public class MainActivity extends AppCompatActivity {
         DataViewModel model = new ViewModelProvider(this).get(DataViewModel.class);
         try {
             model.refresh();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
     }
@@ -145,8 +143,12 @@ public class MainActivity extends AppCompatActivity {
         // Do something in response to button
 
         myApplication list = (myApplication) getApplication();
-        NewsItem item = ((NewsItemLayout)(view.getParent().getParent().getParent().getParent())).item;
-        list.detailNews = item.getNews();
+        list.detailNews = ((NewsItemLayout)(view.getParent().getParent().getParent().getParent())).item;
+        try {
+            list.detailNews.saveContent();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         startActivity(new Intent(this, DetailNewsActivity.class));
     }
 

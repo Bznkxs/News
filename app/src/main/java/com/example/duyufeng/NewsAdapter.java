@@ -9,10 +9,11 @@ import android.widget.*;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.io.IOException;
 import java.util.LinkedList;
 
 public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private LinkedList<NewsItem> data;
+    private LinkedList<News> data;
 
     private final int TYPE_ITEM = 1;
     private final int TYPE_FOOTER = 2;
@@ -33,7 +34,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    public final LinkedList<NewsItem> getData() {
+    public final LinkedList<News> getData() {
         return data;
     }
 
@@ -73,36 +74,30 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    public NewsAdapter(LinkedList<NewsItem> myDataset) {
+    public NewsAdapter(LinkedList<News> myDataset) {
         data = myDataset;
     }
 
-    public NewsAdapter(LinkedList<NewsItem> myDataset,
-                       String filter) {
-        data = new LinkedList<>();
-        for (NewsItem i : myDataset) {
-            if (i.getName().toLowerCase().contains(filter.toLowerCase()))
-                data.add(i);
-        }
-    }
-
+/*
     public NewsAdapter(LinkedList<NewsItem> myDataset,
                        int filter) {
         if (filter == NewsItem.Cached) {
             showCacheButton = false;
             data = new LinkedList<>();
-            for (NewsItem i : myDataset) {
+            for (News i : myDataset) {
                 // TODO: 要结合后端改实现。需要有缓存位。
-                if (i.getNews() != null && i.getNews().peekContent() != null)
+                if (i.getNews() != null && i.getNews().isSaved())
                     data.add(i);
             }
         }
 
     }
-
+ */
     public NewsAdapter() {
         data = null;
     }
+
+
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent,
@@ -131,7 +126,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (holder instanceof MyViewHolder) {
             MyViewHolder holder1 = (MyViewHolder)holder;
             holder1.txt_main.setText(data.get(position).getName());
-            holder1.txt_affl.setText(data.get(position).getAuthor());
+            holder1.txt_affl.setText(data.get(position).getAuthor() + "  " + data.get(position).getDate());
             holder1.txt_no.setText(Integer.toString(position + 1));
             holder1.view.item = data.get(position);
 
@@ -161,7 +156,11 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         button1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                ((NewsItemLayout)(view.getParent().getParent().getParent().getParent())).item.getNews().getContent();
+                                try {
+                                    ((NewsItemLayout)(view.getParent().getParent().getParent().getParent())).item.saveContent();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                                 Toast.makeText(v.getContext(), "内容已缓存", Toast.LENGTH_SHORT).show();
                                 dialog.dismiss();
                                 notifyDataSetChanged();
@@ -170,7 +169,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     }
                 });
             }
-            if (data.get(position).getNews().peekContent() != null)
+            if (data.get(position).isSaved())
                 holder1.txt_main.setTextColor(Color.parseColor("#80000000"));
             else
                 holder1.txt_main.setTextColor(Color.parseColor("#ff000000"));

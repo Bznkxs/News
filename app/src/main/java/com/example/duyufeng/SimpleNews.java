@@ -1,9 +1,5 @@
 package com.example.duyufeng;
 
-import android.content.res.loader.ResourcesLoader;
-import android.os.Parcel;
-import android.os.Parcelable;
-
 // TODO
 public class SimpleNews implements News  {
     String name, date, author, abst;
@@ -47,10 +43,6 @@ public class SimpleNews implements News  {
         return author;
     }
 
-    @Override
-    public String getAbstract() {
-        return abst;
-    }
 
     @Override
     public String getContent() {
@@ -72,40 +64,24 @@ public class SimpleNews implements News  {
         content = null;
     }
 
-    @Override
-    public String peekContent() {
-        return content;
-    }
+//    @Override
+//    public String peekContent() {
+//        return content;
+//    }
+
 
     @Override
-    public int describeContents() {
-        return 0;
+    public boolean isSaved() {
+        return content!=null;
     }
 
-    public void writeToParcel(Parcel out, int flags) {
-        out.writeString(name);
-        out.writeString(date);
-        out.writeString(author);
-        out.writeString(abst);
-        out.writeString(content);
+    @Override
+    public void saveContent()  {
+        getContent();
     }
 
-    public static final Parcelable.Creator<News> CREATOR
-            = new Parcelable.Creator<News>() {
-        public News createFromParcel(Parcel in) {
-            return new com.example.duyufeng.SimpleNews(in);
-        }
-
-        public News[] newArray(int size) {
-            return new com.example.duyufeng.SimpleNews[size];
-        }
-    };
-
-    private SimpleNews(Parcel in) {
-        name = in.readString();
-        date = in.readString();
-        author = in.readString();
-        abst = in.readString();
-        content = in.readString();
+    @Override
+    public String getAbstract() {
+        return abst;
     }
 }

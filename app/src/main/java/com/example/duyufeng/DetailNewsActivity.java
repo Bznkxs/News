@@ -29,9 +29,6 @@ public class DetailNewsActivity extends AppCompatActivity {
         mNews = list.detailNews;
         ((TextView)findViewById(R.id.Title)).setText(mNews.getName());
         ((TextView)findViewById(R.id.affix)).setText(mNews.getAuthor() + "    " + mNews.getDate());
-        // getNews
-        // getContent可能需要一定时间，这里需要开多线程，进入等待状态
-
         ((TextView)findViewById(R.id.Content)).setText(mNews.getContent());
     }
 

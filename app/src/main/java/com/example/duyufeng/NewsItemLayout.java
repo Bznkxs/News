@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 
 public class NewsItemLayout extends LinearLayout{
-    NewsItem item;
+    News item;
     Context context;
     public NewsItemLayout(Context context) {
         super(context);

@@ -19,6 +19,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.util.Arrays;
+import java.util.LinkedList;
+
 // TODO: 这是搜索界面。需要完成doMySearch()函数。
 public class SearchActivity extends AppCompatActivity {
 
@@ -97,64 +100,24 @@ public class SearchActivity extends AppCompatActivity {
 
             case R.id.navigation_news:
             default:
-                // TODO: list是我们的新闻列表。用list来搜索。
-                Toast.makeText(this, "Query: "+query + "; 现有新闻数=" + list.list.size(), Toast.LENGTH_SHORT).show();
 
                 RecyclerView recyclerView = findViewById(R.id.recyclerView);
                 recyclerView.setHasFixedSize(true);
                 LinearLayoutManager layoutManager = new LinearLayoutManager(this);
                 recyclerView.setLayoutManager(layoutManager);
-                adapter = new NewsAdapter(list.list, query);
+                adapter = new NewsAdapter(new LinkedList<>(Arrays.asList(list.provider.search(query))));
                 recyclerView.setAdapter(adapter);
 
-                /*
-                // 暂不支持上拉加载功能
-                recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
-                    @Override
-                    public void onLoadMore() {
-                        adapter.setLoadState(adapter.LOADING);
-
-                        if (dataViewModel.getNewsItems().getValue().size() < 44444) {
-                            // 模拟获取网络数据，延时1s
-                            new Timer().schedule(new TimerTask() {
-                                @Override
-                                public void run() {
-                                    getActivity().runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            // 这里是更多数据
-                                            dataViewModel.loadMoreNewsItems();
-                                            adapter.setLoadState(adapter.LOADING_COMPLETE);
-                                        }
-                                    });
-                                }
-                            }, 1000);
-                        } else {
-                            // 显示加载到底的提示
-                            adapter.setLoadState(adapter.LOADING_END);
-                        }
-                        myApplication list = (myApplication)(Objects.requireNonNull(getActivity()).getApplication());
-                        list.list = dataViewModel.getNewsItems().getValue();
-                    }
-                });
-                 */
-
                 break;
-
-
-
-
-
         }
-
     }
 
     public void toDetailView(View view) {
         // Do something in response to button
 
         myApplication list = (myApplication) getApplication();
-        NewsItem item = ((NewsItemLayout)(view.getParent().getParent().getParent().getParent())).item;
-        list.detailNews = item.getNews();
+        News item = ((NewsItemLayout)(view.getParent().getParent().getParent().getParent())).item;
+        list.detailNews = item;
         startActivity(new Intent(this, DetailNewsActivity.class));
     }
 }
