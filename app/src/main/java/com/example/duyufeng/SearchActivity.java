@@ -23,11 +23,14 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 public class SearchActivity extends AppCompatActivity {
 
     private NewsAdapter adapter;
+
+    myApplication list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        list = (myApplication)getApplication();
         // set toolbar working
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -65,12 +68,15 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        adapter.notifyDataSetChanged();
+        if (list.navId == R.id.navigation_news) {
+            adapter.notifyDataSetChanged();
+        }
+
+
     }
 
     void doMySearch(String query) {
-        myApplication list;
-        list = (myApplication)getApplication();
+
 
         switch (list.navId) {
 

@@ -17,10 +17,12 @@ public class Graph {
     HashMap<String,NodeInfo> table=new HashMap<String,NodeInfo>();
     static final String sep="@@@";
     NodeInfo root;
+    int max_limit=200;
     public Graph(String mainWord) throws IOException, JSONException {
         root=new NodeInfo(mainWord);
-        dfs(root,5);
-        for(String i:relations.values()){
+        table.put(mainWord,root);
+        dfs(root,1);
+        for(String i:relations.keySet()){
             String[] arr=i.split(sep);
             String u=arr[0],v=arr[1];
             NodeInfo nu=table.get(u),nv=table.get(v);
@@ -29,7 +31,10 @@ public class Graph {
             }
         }
     }
-    
+
+    // TODO: 图谱需要进一步解析！
+    // 钟南山（["",""]，顺便清除空串)
+    // 病毒（、）
     void dfs(NodeInfo x, int dep) throws IOException, JSONException {
         if(dep==0) return;
         visited.add(x.label);
@@ -37,28 +42,33 @@ public class Graph {
         for(int i=0;i<a.length();++i){
             JSONObject o=a.getJSONObject(i);
             String label=o.getString("label");
-            NodeInfo cur=table.getOrDefault(label,null);
-            if(cur==null){
-                cur=new NodeInfo(label);
-                table.put(label,cur);
-            }
+            if(!x.label.equals(label)) continue;
             JSONObject abs=o.getJSONObject("abstractInfo");
             String desc=abs.getString("enwiki");
             if(desc.equals("")) desc=abs.getString("baidu");
             if(desc.equals("")) desc=abs.getString("zhwiki");
-            cur.desc=desc;
+            x.desc=desc;
             abs=abs.getJSONObject("COVID");
-            cur.pushMap(abs.getJSONObject("properties"));
+            x.pushMap(abs.getJSONObject("properties"));
+
             JSONArray nea=abs.getJSONArray("relations");
             for(int j=0;j<nea.length();++j){
                 JSONObject ob=nea.getJSONObject(j);
                 String to=ob.getString("label");
                 boolean forward=ob.getBoolean("forward");
                 String relation=ob.getString("relation");
-                relations.put(x.label+sep+to,relation);
-                NodeInfo y=new NodeInfo(to);
+                String raw=(forward)?x.label+sep+to:to+sep+x.label;
+                relations.put(raw,relation);
+                NodeInfo y=table.getOrDefault(to,null);
+                if(y==null){
+                    y=new NodeInfo(to);
+                    table.put(to,y);
+                }
+
                 if(!visited.contains(to)) dfs(y,dep-1);
+                if(table.size()>max_limit) break;
             }
+            break;
         }
     }
     public NodeInfo getRoot(){

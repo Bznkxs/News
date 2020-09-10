@@ -25,7 +25,7 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             super(v);
             txtName = v.findViewById(R.id.textRegion);
             txtConfirmed = v.findViewById(R.id.textConfirmed);
-            txtSuspected = v.findViewById(R.id.textSuspected);
+            //txtSuspected = v.findViewById(R.id.textSuspected);
             txtDeath = v.findViewById(R.id.textDeaths);
             txtCured = v.findViewById(R.id.textCured);
             view     = (com.example.duyufeng.DataItemLayout)v;
@@ -81,7 +81,7 @@ public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (pos != null) {
             mholder.txtName.setText(pos.getName());
             mholder.txtConfirmed.setText(pos.getCONFIRMED());
-            mholder.txtSuspected.setText(pos.getSUSPECTED());
+            //mholder.txtSuspected.setText(pos.getSUSPECTED());
             mholder.txtDeath.setText(pos.getDEAD());
             mholder.txtCured.setText(pos.getCURED());
         }

@@ -80,6 +80,8 @@ public class EntityExpandableListAdapter extends BaseExpandableListAdapter {
         return convertView;
     }
 
+
+
     //取得显示给定分组给定子位置的数据用的视图
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {

@@ -19,6 +19,7 @@ public class NodeInfo {
     }
     void pushMap(JSONObject o) throws JSONException {
         JSONArray a=o.names();
+        if(a==null) return;
         for(int i=0;i<a.length();++i){
             String key=a.getString(i);
             String val=o.getString(key);

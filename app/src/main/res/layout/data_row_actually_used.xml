@@ -40,17 +40,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                 <TextView
-                        android:text="Suspected"
-                        android:layout_width="match_parent"
-                        android:gravity="center|center_vertical"
-                        android:layout_height="wrap_content" android:id="@+id/textSuspected"
-                        android:textAlignment="center" android:textColor="#FF8522" android:maxWidth="26dp"/>
-            </LinearLayout>
-            <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                <TextView
                         android:text="deaths"
                         android:layout_width="match_parent"
                         android:gravity="center|center_vertical"

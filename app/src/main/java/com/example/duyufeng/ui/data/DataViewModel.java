@@ -67,6 +67,8 @@ class Loader extends Thread {
 
     private void refresh() throws IOException, JSONException {
         JSONObject o = UrlToJson.parse("https://covid-dashboard.aminer.cn/api/dist/epidemic.json");
+        if (o == null)
+            return;
         JSONArray names=o.names();
         for(int i = 0; i< Objects.requireNonNull(names).length(); ++i){
             String key=names.getString(i);
@@ -87,12 +89,14 @@ class Loader extends Thread {
                 foreign.add(tmp);
             }
         }
-        chinese.sort(new Comparator<StatInfo>() {
+        Comparator<StatInfo> comparator = new Comparator<StatInfo>() {
             @Override
             public int compare(StatInfo o1, StatInfo o2) {
                 return -Integer.valueOf(o1.getCONFIRMED()).compareTo(Integer.parseInt(o2.getCONFIRMED()));
             }
-        });
+        };
+        chinese.sort(comparator);
+        foreign.sort(comparator);
     }
 
     public void run() {
