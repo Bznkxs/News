@@ -13,6 +13,7 @@ public interface News {
     String getDate();
     String getAuthor();
     String getAbstract();
+    default String getType() { return ""; }
     String getContent();
     void saveContent() throws IOException;
     void removeContent() throws IOException;

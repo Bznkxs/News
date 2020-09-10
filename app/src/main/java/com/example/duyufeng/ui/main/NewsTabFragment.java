@@ -34,8 +34,19 @@ public class NewsTabFragment extends Fragment {
     private NewsViewModel dataViewModel;
     private RecyclerView recyclerView;
     private NewsAdapter adapter;
-    public static NewsTabFragment newInstance() {
-        NewsTabFragment fragment = new NewsTabFragment();
+    String typeFilter;
+
+
+    public NewsTabFragment(int idx) {
+        super();
+        if (idx == 0)
+            typeFilter = "news";
+        else
+            typeFilter = "paper";
+    }
+
+    public static NewsTabFragment newInstance(int idx) {
+        NewsTabFragment fragment = new NewsTabFragment(idx);
         return fragment;
     }
 
@@ -74,7 +85,7 @@ public class NewsTabFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        adapter = new NewsAdapter(dataViewModel.getNewsItems().getValue());
+        adapter = new NewsAdapter(dataViewModel.getNewsItems().getValue(), typeFilter);
         recyclerView.setAdapter(adapter);
 
         SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipe_refresh_layout);
@@ -136,7 +147,13 @@ public class NewsTabFragment extends Fragment {
             }
         });
 
-
+        dataViewModel.getNewsItems().observe(getViewLifecycleOwner(), new Observer<LinkedList<News>>() {
+            @Override
+            public void onChanged(LinkedList<News> news) {
+                adapter.notifyDataSetChanged();
+                adapter.refresh();
+            }
+        });
 
 
         myApplication list = (myApplication)(Objects.requireNonNull(getActivity()).getApplication());

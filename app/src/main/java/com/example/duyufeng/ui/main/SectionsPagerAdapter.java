@@ -29,10 +29,10 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         // Return a PlaceholderFragment (defined as a static inner class below).
         switch (position) {
             case 0:
-                return NewsTabFragment.newInstance();
+                return NewsTabFragment.newInstance(0);
             case 1:
             case 2:
-                return Tabtwo.newInstance();
+                return NewsTabFragment.newInstance(1);
             default:
                 return null;
         }

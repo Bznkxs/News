@@ -40,9 +40,12 @@ public class NewsProvider {
 
             if(f.isFile()&&i.contains(".news")){
                 if (savedNames.contains(i)) {
+                    try {
                     NewsInfo ni = NewsInfo.load(this, i);
                     pool.add(ni);
-                    inpool.add(ni.id);
+                    inpool.add(ni.id); } catch (Exception e) {
+                        f.delete();
+                    }
                 } else {
                     f.delete();
                 }

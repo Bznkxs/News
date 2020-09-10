@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 
 public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private LinkedList<News> data;
+    private LinkedList<News> data, oData;
 
     private final int TYPE_ITEM = 1;
     private final int TYPE_FOOTER = 2;
@@ -23,6 +23,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public final int LOADING_END = 3;
 
     public boolean showCacheButton = true;
+    String filter = "";
 
     @Override
     public int getItemViewType(int position) {
@@ -78,7 +79,27 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         data = myDataset;
     }
 
-/*
+    public NewsAdapter(LinkedList<News> myDataset, String Filter) {
+        filter = Filter;
+        data = new LinkedList<>();
+        for (News i : myDataset) {
+            if (i.getType().equals(Filter))
+                data.add(i);
+        }
+        oData = myDataset;
+    }
+
+    public void refresh() {
+        if (filter.equals(""))
+            return;
+        data = new LinkedList<>();
+        for (News i : oData) {
+            if (i.getType().equals(filter))
+                data.add(i);
+        }
+    }
+
+    /*
     public NewsAdapter(LinkedList<NewsItem> myDataset,
                        int filter) {
         if (filter == NewsItem.Cached) {
