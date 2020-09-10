@@ -24,8 +24,9 @@ public class DetailNewsActivity extends AppCompatActivity {
         ActionBar abar = getSupportActionBar();
         abar.setDisplayHomeAsUpEnabled(true);
 
-        Intent intent = getIntent();
-        mNews = intent.getParcelableExtra(String.valueOf(R.string.Item));
+        myApplication list = (myApplication) getApplication();
+
+        mNews = list.detailNews;
         ((TextView)findViewById(R.id.Title)).setText(mNews.getName());
         ((TextView)findViewById(R.id.affix)).setText(mNews.getAuthor() + "    " + mNews.getDate());
         // getNews

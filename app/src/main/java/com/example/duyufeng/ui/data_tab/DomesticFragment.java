@@ -17,6 +17,7 @@ import com.example.duyufeng.ui.data.DataViewModel;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Objects;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -40,6 +41,8 @@ public class DomesticFragment extends Fragment {
             dataViewModel.putDomestic(s1);
         }
         dataViewModel.loadDomestic();
+        //new Thread(() -> dataViewModel.loadDomestic()).start();
+
     }
 
     @Override
@@ -58,31 +61,35 @@ public class DomesticFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(root.getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        DataAdapter adapter = new DataAdapter(new LinkedList<>
-                (dataViewModel.getDomestic().getValue().values()));
+        HashMap<String, PandemicData> e = dataViewModel.getDomestic().getValue();
+        if (e != null) {
+            DataAdapter adapter = new DataAdapter(new LinkedList<>
+                    (e.values()));
 
-        View header = LayoutInflater.from(getContext()).inflate(R.layout.data_rowhead,
-                recyclerView, false);
-        adapter.setHeaderView(header);
+            View header = LayoutInflater.from(getContext()).inflate(R.layout.data_rowhead,
+                    recyclerView, false);
+            adapter.setHeaderView(header);
 
-        recyclerView.setAdapter(adapter);
+            recyclerView.setAdapter(adapter);
+        }
 
         // 设置下拉刷新
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 // 刷新数据
-                dataViewModel.loadDomestic();
 
-                // 延时1s关闭下拉刷新
+                dataViewModel.loadDomestic();
+                // new Thread(() -> dataViewModel.loadDomestic()).start();
+                // 延时0.1s关闭下拉刷新
                 swipeRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
+                        if (swipeRefreshLayout.isRefreshing()) {
                             swipeRefreshLayout.setRefreshing(false);
                         }
                     }
-                }, 1000);
+                }, 100);
 
             }
         });

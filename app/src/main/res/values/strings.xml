@@ -6,21 +6,15 @@
     <string name="Item">item</string>
     <string name="search_hint">搜索</string>
     <string name="search_word">search_word</string>
-    <string name="search_title">search</string>
+    <string name="search_title">搜索</string>
+    <string name="delete_complete">已删除搜索数据。</string>
     <string name="action_settings">settings</string>
-    <string name="share">Share...</string>
+    <string name="share">分享…</string>
     <string name="details">新闻详情</string>
     <string name="news">新闻列表</string>
-    <string name="title_activity_tmp">tmpActivity</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
     <string name="tab_text_3">Tab 3</string>
-    <string name="title_activity_tmpbottom">tmpbottom</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-    <string name="hello_home_second">Hello HomeSecondFragment. Arg: %1$s</string>
-    <string name="hello_dashboard_second">Hello HomeSecondFragment. Arg: %1$s</string>
-    <string name="hello_notifications_second">Hello HomeSecondFragment. Arg: %1$s</string>
     <string name="title_news">新闻</string>
     <string name="title_trend">聚类</string>
     <string name="title_data">数据</string>
@@ -33,14 +27,12 @@
     <string name="death">死亡</string>
     <string name="overall">累计确诊</string>
     <string name="title_activity_entity">EntityActivity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="entity_detail">实体详情</string>
     <string name="attributes">属性</string>
     <string name="points_to">该实体指向的实体</string>
     <string name="pointed_from">指向该实体的实体</string>
+    <string name="view_cache">查看缓存</string>
+    <string name="title_activity_cache">缓存</string>
+    <string name="delete">删除</string>
+    <string name="empty">清空</string>
 </resources>

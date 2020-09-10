@@ -50,7 +50,7 @@ public class NewsViewModel extends ViewModel {
                             "2018-01-01",
                             "Bznkxs" + i,
                             "abst",
-                            "Contents,..."
+                            null
                             )
             ));
         }

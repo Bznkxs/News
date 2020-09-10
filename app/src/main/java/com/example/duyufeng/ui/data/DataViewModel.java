@@ -30,10 +30,15 @@ public class DataViewModel extends ViewModel {
 
 
     public void loadDomestic() {
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         for (String i : domesticData.keySet()) {
             domesticData.put(i, new SimplePandemicData(i));
         }
-        domestic.setValue(domesticData);
+        domestic.postValue(domesticData);
     }
 
     public LiveData<HashMap<String, PandemicData>> getInternational() {
@@ -57,6 +62,6 @@ public class DataViewModel extends ViewModel {
         for (String i : internationalData.keySet()) {
             internationalData.put(i, new SimplePandemicData(i));
         }
-        international.setValue(internationalData);
+        international.postValue(internationalData);
     }
 }

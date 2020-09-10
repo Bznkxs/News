@@ -1,32 +1,27 @@
 package com.example.duyufeng;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import androidx.annotation.NonNull;
+import android.widget.*;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.LinkedList;
 
 public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private LinkedList<NewsItem> data;
 
-    // 普通布局
     private final int TYPE_ITEM = 1;
-    // 脚布局
     private final int TYPE_FOOTER = 2;
-    // 当前加载状态，默认为加载完成
     private int loadState = 2;
-    // 正在加载
     public final int LOADING = 1;
-    // 加载完成
     public final int LOADING_COMPLETE = 2;
-    // 加载到底
     public final int LOADING_END = 3;
+
+    public boolean showCacheButton = true;
 
     @Override
     public int getItemViewType(int position) {
@@ -36,6 +31,10 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         } else {
             return TYPE_ITEM;
         }
+    }
+
+    public final LinkedList<NewsItem> getData() {
+        return data;
     }
 
     // Provide a reference to the views for each data item
@@ -68,14 +67,37 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         FootViewHolder(View itemView) {
             super(itemView);
-            pbLoading = (ProgressBar) itemView.findViewById(R.id.pb_loading);
-            tvLoading = (TextView) itemView.findViewById(R.id.tv_loading);
-            llEnd = (LinearLayout) itemView.findViewById(R.id.ll_end);
+            pbLoading = itemView.findViewById(R.id.pb_loading);
+            tvLoading = itemView.findViewById(R.id.tv_loading);
+            llEnd = itemView.findViewById(R.id.ll_end);
         }
     }
 
     public NewsAdapter(LinkedList<NewsItem> myDataset) {
         data = myDataset;
+    }
+
+    public NewsAdapter(LinkedList<NewsItem> myDataset,
+                       String filter) {
+        data = new LinkedList<>();
+        for (NewsItem i : myDataset) {
+            if (i.getName().toLowerCase().contains(filter.toLowerCase()))
+                data.add(i);
+        }
+    }
+
+    public NewsAdapter(LinkedList<NewsItem> myDataset,
+                       int filter) {
+        if (filter == NewsItem.Cached) {
+            showCacheButton = false;
+            data = new LinkedList<>();
+            for (NewsItem i : myDataset) {
+                // TODO: 要结合后端改实现。需要有缓存位。
+                if (i.getNews() != null && i.getNews().peekContent() != null)
+                    data.add(i);
+            }
+        }
+
     }
 
     public NewsAdapter() {
@@ -112,6 +134,46 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             holder1.txt_affl.setText(data.get(position).getAuthor());
             holder1.txt_no.setText(Integer.toString(position + 1));
             holder1.view.item = data.get(position);
+
+
+            // cache problems
+            if (!showCacheButton) {
+                holder1.dotButton.setVisibility(View.GONE);
+            }
+            else {
+                holder1.dotButton.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view) {
+                        final BottomSheetDialog dialog = new BottomSheetDialog(view.getContext());
+                        LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                        View view1 = inflater.inflate(R.layout.dialog_bottom_newslist, null);
+                        dialog.setContentView(view1);
+                        dialog.show();
+                        Button button = dialog.findViewById(R.id.btnCancel);
+                        button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                dialog.dismiss();
+                            }
+                        });
+                        Button button1 = dialog.findViewById(R.id.btnCache);
+                        button1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ((NewsItemLayout)(view.getParent().getParent().getParent().getParent())).item.getNews().getContent();
+                                Toast.makeText(v.getContext(), "内容已缓存", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                                notifyDataSetChanged();
+                            }
+                        });
+                    }
+                });
+            }
+            if (data.get(position).getNews().peekContent() != null)
+                holder1.txt_main.setTextColor(Color.parseColor("#80000000"));
+            else
+                holder1.txt_main.setTextColor(Color.parseColor("#ff000000"));
         }
         else {
             FootViewHolder footViewHolder = (FootViewHolder) holder;

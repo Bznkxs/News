@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.example.duyufeng">
-    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
             android:name=".myApplication"
             android:allowBackup="true"
@@ -10,11 +12,19 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".CacheActivity"
+                  android:label="@string/title_activity_cache"
+                  android:parentActivityName=".MainActivity"
+                  android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH"/>
+            </intent-filter>
+        </activity>
         <activity
                 android:name=".EntityActivity"
                 android:label="@string/title_activity_entity"
                 android:parentActivityName=".SearchActivity"
-                android:theme="@style/AppTheme.NoActionBar">
+                android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
         <activity
                 android:name=".MainActivity"
@@ -57,6 +67,7 @@
                 android:parentActivityName=".MainActivity"
                 android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
+
 
         <provider
                 android:name=".MySuggestionProvider"

@@ -71,7 +71,8 @@
 
                                 android:id="@+id/dots_button" android:textSize="20sp"
                                 android:background="?attr/selectableItemBackground"
-                                tools:ignore="SmallSp" android:layout_weight="1" android:onClick="moreOptions"/>
+                                tools:ignore="SmallSp" android:layout_weight="1"
+                                />
                 </LinearLayout>
         </FrameLayout>
 

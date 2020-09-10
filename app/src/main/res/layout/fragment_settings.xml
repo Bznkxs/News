@@ -6,9 +6,30 @@
         android:layout_height="match_parent"
         tools:context=".ui.settings.SettingsFragment">
 
-    <TextView
+    <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Hello"/>
+            android:layout_height="match_parent">
+        <Space
+                android:layout_width="match_parent"
+                android:layout_height="4dp"/>
+        <Button
+                android:text="查看已缓存的内容"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/btnViewCached"
+                style="@style/Widget.AppCompat.Button.Borderless" android:background="#04000000"/>
+        <Space
+                android:layout_width="match_parent"
+                android:layout_height="4dp"/>
+        <Button
+                android:text="清除搜索记录"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/btnDelSearch"
+                style="@style/Widget.AppCompat.Button.Borderless" android:background="#04000000"
+        />
+        <Space
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+    </LinearLayout>
 
 </FrameLayout>

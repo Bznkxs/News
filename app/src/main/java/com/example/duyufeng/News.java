@@ -12,6 +12,8 @@ public interface News extends Parcelable {
     String getAuthor();
     String getAbstract();
     String getContent();
+    String peekContent();
+    void removeContent();
 }
 
 

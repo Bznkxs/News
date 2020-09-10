@@ -66,6 +66,7 @@ public class SimplePandemicData implements PandemicData {
     }
 
     public SimplePandemicData(String name) {
+
         rng = new Random();
         this.name = name;
         overallCases = rng.nextInt(10000000);

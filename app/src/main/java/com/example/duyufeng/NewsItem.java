@@ -18,6 +18,7 @@ import android.os.Parcelable;
 //  这个News对象会被传递给详情页进行加载。请看News
 
 public interface NewsItem extends Parcelable {
+    static final int Cached = 1;
     String getName();  //
     String getDate();
     String getAuthor();

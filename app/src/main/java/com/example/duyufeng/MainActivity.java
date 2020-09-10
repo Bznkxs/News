@@ -6,8 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.provider.SearchRecentSuggestions;
 import android.view.*;
 import android.widget.Button;
 import android.widget.TextView;
@@ -26,7 +26,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView = null;
@@ -55,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
         searchView.setIconifiedByDefault(false);
         searchView.setQueryHint(getResources().getString(R.string.search_hint));
 
+        menu.close();
+
         return true;
     }
     @Override
@@ -68,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
         titleView = findViewById(R.id.title);
         navView = findViewById(R.id.nav_view);
 
-        Resources resource=getBaseContext().getResources();
-        ColorStateList csl=(ColorStateList)resource.getColorStateList(R.color.navigation_menu_item_color);
+        Resources resource = getBaseContext().getResources();
+        ColorStateList csl = (ColorStateList)resource.getColorStateList(R.color.navigation_menu_item_color);
         navView.setItemTextColor(csl);
         navView.getMenu().getItem(0).setChecked(true);
 
@@ -119,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     @Override
     public void setTitle(int resourceId) {
         super.setTitle(resourceId);
@@ -129,23 +129,41 @@ public class MainActivity extends AppCompatActivity {
     public void toDetailView(View view) {
         // Do something in response to button
 
-        Intent intent = new Intent(this, DetailNewsActivity.class);
+        myApplication list = (myApplication) getApplication();
         NewsItem item = ((NewsItemLayout)(view.getParent().getParent().getParent().getParent())).item;
-        intent.putExtra(String.valueOf(R.string.Item), item.getNews());
-        startActivity(intent);
+        list.detailNews = item.getNews();
+        startActivity(new Intent(this, DetailNewsActivity.class));
     }
 
-    public void moreOptions(View view) {
+
+
+    void clearHistory() {
+        SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this,
+                com.example.duyufeng.MySuggestionProvider.AUTHORITY, com.example.duyufeng.MySuggestionProvider.MODE);
+        suggestions.clearHistory();
+    }
+
+
+    public void deleteCache(View view) {
         // Toast.makeText(view.getContext(),"You clicked `...'!", Toast.LENGTH_SHORT).show();
         final BottomSheetDialog dialog = new BottomSheetDialog(view.getContext());
         LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view1 = inflater.inflate(R.layout.bottomdialog, null);
+        View view1 = inflater.inflate(R.layout.dialog_bottom_deletecache, null);
         dialog.setContentView(view1);
         dialog.show();
         Button button = dialog.findViewById(R.id.btnCancel);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        Button button1 = dialog.findViewById(R.id.btnDelete);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clearHistory();
+                Toast.makeText(view.getContext(), R.string.delete_complete, Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });

@@ -54,14 +54,17 @@ public class InternationalFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(root.getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        DataAdapter adapter = new DataAdapter(new LinkedList<>
-                (dataViewModel.getInternational().getValue().values()));
+        HashMap<String, PandemicData> e = dataViewModel.getInternational().getValue();
+        if (e != null) {
+            DataAdapter adapter = new DataAdapter(new LinkedList<>
+                    (e.values()));
 
-        View header = LayoutInflater.from(getContext()).inflate(R.layout.data_rowhead,
-                recyclerView, false);
-        adapter.setHeaderView(header);
+            View header = LayoutInflater.from(getContext()).inflate(R.layout.data_rowhead,
+                    recyclerView, false);
+            adapter.setHeaderView(header);
 
-        recyclerView.setAdapter(adapter);
+            recyclerView.setAdapter(adapter);
+        }
 
         // 设置下拉刷新
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -74,11 +77,11 @@ public class InternationalFragment extends Fragment {
                 swipeRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
+                        if ( swipeRefreshLayout.isRefreshing()) {
                             swipeRefreshLayout.setRefreshing(false);
                         }
                     }
-                }, 1000);
+                }, 100);
 
             }
         });

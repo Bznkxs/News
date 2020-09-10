@@ -68,6 +68,16 @@ public class SimpleNews implements News  {
     }
 
     @Override
+    public void removeContent() {
+        content = null;
+    }
+
+    @Override
+    public String peekContent() {
+        return content;
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }

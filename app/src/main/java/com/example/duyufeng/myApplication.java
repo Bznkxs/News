@@ -8,5 +8,5 @@ import java.util.LinkedList;
 public class myApplication extends Application {
     public LinkedList<NewsItem> list;
     public int navId;
-
+    public News detailNews;
 }

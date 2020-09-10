@@ -12,12 +12,19 @@
             android:layout_height="match_parent" android:fillViewport="true">
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:orientation="vertical">
+            <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"/>
+            <TextView
+                    android:text="确定删除吗？该操作不可恢复。"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/textView" android:gravity="center"/>
             <Button
-                    android:text="缓存"
+                    android:text="确定删除"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/btnSave"
-                    android:background="?attr/selectableItemBackground"/>
+                    android:id="@+id/btnDelete"
+                    android:backgroundTint="#FF5050" android:textColor="#ffffff" android:textStyle="bold"/>
             <View android:layout_width="match_parent"
                   android:layout_height="5dp"
                   android:background="@color/config_color_gray_9"/>

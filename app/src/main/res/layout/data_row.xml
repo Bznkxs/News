@@ -68,7 +68,7 @@
                         android:text="deaths"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" android:id="@+id/textDeaths"
-                        android:textAlignment="center" android:textColor="#4D000000"
+                        android:textAlignment="center" android:textColor="#9D000000"
                         android:textAllCaps="false" android:maxWidth="32dp"/>
                 <View
                         android:layout_width="wrap_content"

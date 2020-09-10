@@ -81,15 +81,18 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.MyViewHolder> 
         if (getItemViewType(position) == TYPE_HEADER)
             return;
         position = getPosition(holder);
-        holder.txtName.setText(data.get(position).getName());
-        holder.txtActive.setText(String.valueOf(data.get(position).getActiveCases()));
-        holder.txtNewActive.setText(valueOf(data.get(position).getNewActiveCases()));
-        holder.txtOverall.setText(String.valueOf(data.get(position).getOverallCases()));
-        holder.txtNewCases.setText(valueOf(data.get(position).getNewCases()));
-        holder.txtDeath.setText(String.valueOf(data.get(position).getDeaths()));
-        holder.txtNewDeath.setText(valueOf(data.get(position).getNewDeaths()));
-        holder.txtCured.setText(String.valueOf(data.get(position).getCured()));
-        holder.txtNewCured.setText(valueOf(data.get(position).getNewCured()));
+        PandemicData pos = data.get(position);
+        if (pos != null) {
+            holder.txtName.setText(pos.getName());
+            holder.txtActive.setText(String.valueOf(pos.getActiveCases()));
+            holder.txtNewActive.setText(valueOf(pos.getNewActiveCases()));
+            holder.txtOverall.setText(String.valueOf(pos.getOverallCases()));
+            holder.txtNewCases.setText(valueOf(pos.getNewCases()));
+            holder.txtDeath.setText(String.valueOf(pos.getDeaths()));
+            holder.txtNewDeath.setText(valueOf(pos.getNewDeaths()));
+            holder.txtCured.setText(String.valueOf(pos.getCured()));
+            holder.txtNewCured.setText(valueOf(pos.getNewCured()));
+        }
 
     }
 

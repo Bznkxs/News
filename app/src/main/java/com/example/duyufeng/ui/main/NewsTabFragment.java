@@ -29,7 +29,8 @@ public class NewsTabFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
     private boolean calledOnCreate = false;
     private NewsViewModel dataViewModel;
-
+    private RecyclerView recyclerView;
+    private NewsAdapter adapter;
     public static NewsTabFragment newInstance() {
         NewsTabFragment fragment = new NewsTabFragment();
         return fragment;
@@ -42,12 +43,18 @@ public class NewsTabFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_single_tab_newsitem, container, false);
 
-        RecyclerView recyclerView = root.findViewById(R.id.recyclerView);
+        recyclerView = root.findViewById(R.id.recyclerView);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -58,7 +65,7 @@ public class NewsTabFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        NewsAdapter adapter = new NewsAdapter(dataViewModel.getNewsItems().getValue());
+        adapter = new NewsAdapter(dataViewModel.getNewsItems().getValue());
         recyclerView.setAdapter(adapter);
 
         SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipe_refresh_layout);
@@ -86,6 +93,7 @@ public class NewsTabFragment extends Fragment {
 
                 myApplication list = (myApplication)(Objects.requireNonNull(getActivity()).getApplication());
                 list.list = dataViewModel.getNewsItems().getValue();
+
             }
         });
 
