@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         tools:context=".DetailNewsActivity">
     <androidx.appcompat.widget.Toolbar
-            app:title="@string/details"
+            app:title="@string/entity_detail"
             android:id="@+id/my_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -37,6 +37,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/affix"
                     android:layout_marginStart="17dp"/>
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView"/>
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -50,6 +54,13 @@
                     style="@style/TextAppearance.MaterialComponents.Body1" android:background="#00000000"
                     android:text="Lorem ipsum dora sit amet" android:layout_marginTop="30dp"
                     android:duplicateParentState="false"/>
+            <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"/>
+            <ExpandableListView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:id="@+id/expandable_list">
+
+            </ExpandableListView>
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

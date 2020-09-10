@@ -62,8 +62,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         // set toolbar working
         myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -111,13 +109,13 @@ public class MainActivity extends AppCompatActivity {
                         setTitle(R.string.title_settings);
                         break;
                 }
+                myApplication app = (myApplication)getApplication();
+                app.navId = destination.getId();
             }
         });
 
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-
-
 
     }
 

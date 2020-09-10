@@ -5,7 +5,7 @@
     <string name="vdots">⋮</string>
     <string name="Item">item</string>
     <string name="search_hint">搜索</string>
-
+    <string name="search_word">search_word</string>
     <string name="search_title">search</string>
     <string name="action_settings">settings</string>
     <string name="share">Share...</string>
@@ -32,4 +32,15 @@
     <string name="cured">治愈</string>
     <string name="death">死亡</string>
     <string name="overall">累计确诊</string>
+    <string name="title_activity_entity">EntityActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="entity_detail">实体详情</string>
+    <string name="attributes">属性</string>
+    <string name="points_to">该实体指向的实体</string>
+    <string name="pointed_from">指向该实体的实体</string>
 </resources>

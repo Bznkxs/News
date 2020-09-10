@@ -27,7 +27,7 @@ public class DetailNewsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         mNews = intent.getParcelableExtra(String.valueOf(R.string.Item));
         ((TextView)findViewById(R.id.Title)).setText(mNews.getName());
-        ((TextView)findViewById(R.id.affilix)).setText(mNews.getAuthor() + "    " + mNews.getDate());
+        ((TextView)findViewById(R.id.affix)).setText(mNews.getAuthor() + "    " + mNews.getDate());
         // getNews
         // getContent可能需要一定时间，这里需要开多线程，进入等待状态
 

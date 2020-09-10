@@ -59,8 +59,37 @@ public class SearchActivity extends AppCompatActivity {
     void doMySearch(String query) {
         myApplication list;
         list = (myApplication)getApplication();
-        // TODO: list是我们的新闻列表。用list来搜索。
-        Toast.makeText(this, "Query: "+query + "; 现有新闻数=" + list.list.size(), Toast.LENGTH_SHORT).show();
+
+        switch (list.navId) {
+
+            case R.id.navigation_graph:
+                // TODO: 图谱搜索
+                Toast.makeText(this, "Query graph: " + query, Toast.LENGTH_SHORT).show();
+
+
+
+                Intent intent = new Intent(this, EntityActivity.class);
+                intent.putExtra(String.valueOf(R.string.search_word), query);
+
+                startActivity(intent);
+
+
+                break;
+
+
+            case R.id.navigation_news:
+            default:
+                // TODO: list是我们的新闻列表。用list来搜索。
+                Toast.makeText(this, "Query: "+query + "; 现有新闻数=" + list.list.size(), Toast.LENGTH_SHORT).show();
+
+
+                break;
+
+
+
+
+
+        }
 
     }
 
