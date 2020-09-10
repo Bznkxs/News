@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 import com.example.duyufeng.R;
@@ -24,7 +25,7 @@ public class NewsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel = ViewModelProviders.of(this).get(NewsViewModel.class);
+        homeViewModel = new ViewModelProvider(getActivity()).get(NewsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_news, container, false);
 
 

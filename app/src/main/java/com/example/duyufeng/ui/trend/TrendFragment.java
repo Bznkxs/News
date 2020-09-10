@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import com.example.duyufeng.R;
 
@@ -19,7 +20,7 @@ public class TrendFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         trendViewModel =
-                ViewModelProviders.of(this).get(TrendViewModel.class);
+                new ViewModelProvider(getActivity()).get(TrendViewModel.class);
         View root = inflater.inflate(R.layout.fragment_trend, container, false);
         /*final TextView textView = root.findViewById(R.id.text_dashboard);
         trendViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {

@@ -8,13 +8,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.duyufeng.*;
 import com.example.duyufeng.ui.data.DataViewModel;
+import org.json.JSONException;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Objects;
@@ -25,23 +29,18 @@ import java.util.Objects;
 public class DomesticFragment extends Fragment {
 
     private DataViewModel dataViewModel;
-
+    DataAdapter adapter;
     public static DomesticFragment newInstance(int index) {
         return new DomesticFragment();
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
-        dataViewModel.getDomestic();
+        dataViewModel = new ViewModelProvider(this.getActivity()).get(DataViewModel.class);
 
-        String[] s2 =  getResources().getStringArray(R.array.provinces);
-        for (String s1 : s2) {
-            dataViewModel.putDomestic(s1);
-        }
-        dataViewModel.loadDomestic();
-        //new Thread(() -> dataViewModel.loadDomestic()).start();
+        dataViewModel.getDomestic();
 
     }
 
@@ -61,12 +60,11 @@ public class DomesticFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(root.getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        HashMap<String, PandemicData> e = dataViewModel.getDomestic().getValue();
+        ArrayList<StatInfo> e = dataViewModel.getDomestic().getValue();
         if (e != null) {
-            DataAdapter adapter = new DataAdapter(new LinkedList<>
-                    (e.values()));
+            adapter = new DataAdapter(e);
 
-            View header = LayoutInflater.from(getContext()).inflate(R.layout.data_rowhead,
+            View header = LayoutInflater.from(getContext()).inflate(R.layout.data_rowhead_actually_used,
                     recyclerView, false);
             adapter.setHeaderView(header);
 
@@ -79,32 +77,37 @@ public class DomesticFragment extends Fragment {
             public void onRefresh() {
                 // 刷新数据
 
-                dataViewModel.loadDomestic();
-                // new Thread(() -> dataViewModel.loadDomestic()).start();
-                // 延时0.1s关闭下拉刷新
-                swipeRefreshLayout.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (swipeRefreshLayout.isRefreshing()) {
-                            swipeRefreshLayout.setRefreshing(false);
-                        }
-                    }
-                }, 100);
+                try {
+                    dataViewModel.refresh();
+                } catch (IOException | JSONException ioException) {
+                    ioException.printStackTrace();
+                }
 
             }
         });
-
-        dataViewModel.getDomestic().observe(getViewLifecycleOwner(), new Observer<HashMap<String, PandemicData>>() {
+        swipeRefreshLayout.setRefreshing(true);
+        dataViewModel.getDomestic().observe(getViewLifecycleOwner(), new Observer<ArrayList<StatInfo>>() {
                     @Override
-                    public void onChanged(@Nullable HashMap<String, PandemicData> s) {
-                        DataAdapter adapter = new DataAdapter(new LinkedList<>
-                                (dataViewModel.getDomestic().getValue().values()));
+                    public void onChanged(@Nullable ArrayList<StatInfo> s) {
+                        ArrayList<StatInfo> e = dataViewModel.getDomestic().getValue();
+                        if (e != null) {
+                            adapter = new DataAdapter(e);
 
-                        View header = LayoutInflater.from(getContext()).inflate(R.layout.data_rowhead,
-                                recyclerView, false);
-                        adapter.setHeaderView(header);
+                            View header = LayoutInflater.from(getContext()).inflate(R.layout.data_rowhead_actually_used,
+                                    recyclerView, false);
+                            adapter.setHeaderView(header);
 
-                        recyclerView.setAdapter(adapter);
+                            recyclerView.setAdapter(adapter);
+                        }
+                        if (s != null && !s.isEmpty())
+                            swipeRefreshLayout.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (swipeRefreshLayout.isRefreshing()) {
+                                        swipeRefreshLayout.setRefreshing(false);
+                                    }
+                                }
+                            }, 100);
                     }
 
                 }

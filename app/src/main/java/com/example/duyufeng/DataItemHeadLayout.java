@@ -8,7 +8,7 @@ public class DataItemHeadLayout extends LinearLayout{
     Context context;
     public DataItemHeadLayout(Context context) {
         super(context);
-        LayoutInflater.from(context).inflate(R.layout.data_rowhead,this);
+        LayoutInflater.from(context).inflate(R.layout.data_rowhead_actually_used,this);
         this.context = context;
     }
 }

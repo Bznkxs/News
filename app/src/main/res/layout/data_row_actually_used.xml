@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+    <View
+            android:layout_width="wrap_content"
+            android:layout_height="9dp"  android:layout_weight="1"/>
+    <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" android:stretchColumns="*">
+
+        <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <TextView
+                    android:text="地区0"
+                    android:textStyle="bold"
+                    android:layout_width="32dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textRegion"
+                    android:textAlignment="center"
+                    android:gravity="center|center_vertical"
+                    android:textColor="#000000"/>
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="24dp">
+                <TextView
+                        android:text="Confirmed"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/textConfirmed"
+                        android:gravity="center|center_vertical"
+                        android:textAlignment="center" android:textColor="#BE0D00" android:maxWidth="26dp"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <TextView
+                        android:text="Suspected"
+                        android:layout_width="match_parent"
+                        android:gravity="center|center_vertical"
+                        android:layout_height="wrap_content" android:id="@+id/textSuspected"
+                        android:textAlignment="center" android:textColor="#FF8522" android:maxWidth="26dp"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <TextView
+                        android:text="deaths"
+                        android:layout_width="match_parent"
+                        android:gravity="center|center_vertical"
+                        android:layout_height="wrap_content" android:id="@+id/textDeaths"
+                        android:textAlignment="center" android:textColor="#9D000000"
+                        android:textAllCaps="false" android:maxWidth="26dp"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <TextView
+                        android:text="Cured"
+                        android:gravity="center|center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/textCured"
+                        android:textAlignment="center" android:textColor="#00AD07" android:maxWidth="26dp"/>
+            </LinearLayout>
+        </TableRow>
+    </TableLayout>
+    <View
+            android:layout_width="wrap_content"
+            android:layout_height="5dp" android:layout_weight="1"/>
+
+</LinearLayout>
+

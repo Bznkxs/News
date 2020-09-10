@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 import com.example.duyufeng.R;
@@ -19,11 +20,16 @@ public class DataFragment extends Fragment {
 
     private DataViewModel dataViewModel;
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        }
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        dataViewModel =
-                ViewModelProviders.of(this).get(DataViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_data, container, false);
+        dataViewModel = new ViewModelProvider(getActivity()).get(DataViewModel.class);
 
         return root;
     }

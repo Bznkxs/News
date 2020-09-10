@@ -6,10 +6,10 @@ public interface PandemicData {
     long getActiveCases();
     long getDeaths();
     long getCured();
-    long getNewCases();
-    long getNewActiveCases();
-    long getNewDeaths();
-    long getNewCured();
+    default long getNewCases() { return 0; }
+    default long getNewActiveCases() {return 0; }
+    default long getNewDeaths() { return 0; }
+    default long getNewCured() { return 0;}
     default long getOverallImportedCases() { return 0; }
     default long getNewImportedCases() { return 0; }
     default long getSuspectedCases() { return 0; }

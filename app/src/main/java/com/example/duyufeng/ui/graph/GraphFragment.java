@@ -1,5 +1,6 @@
 package com.example.duyufeng.ui.graph;
 
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -27,7 +28,7 @@ public class GraphFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(GraphViewModel.class);
+        mViewModel = new ViewModelProvider(getActivity()).get(GraphViewModel.class);
         // TODO: Use the ViewModel
     }
 

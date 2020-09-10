@@ -2,6 +2,7 @@ package com.example.duyufeng.ui.settings;
 
 import android.content.Intent;
 import android.widget.Button;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -49,7 +50,7 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(SettingsViewModel.class);
+        mViewModel = new ViewModelProvider(getActivity()).get(SettingsViewModel.class);
         // TODO: Use the ViewModel
     }
 

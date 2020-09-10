@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,7 +40,7 @@ public class NewsTabFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dataViewModel = new NewsViewModel(ViewModelProviders.of(this).get(NewsViewModel.class));
+        dataViewModel = new NewsViewModel(new ViewModelProvider(getActivity()).get(NewsViewModel.class));
     }
 
     @Override

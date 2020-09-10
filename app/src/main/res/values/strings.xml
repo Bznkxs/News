@@ -35,4 +35,6 @@
     <string name="title_activity_cache">缓存</string>
     <string name="delete">删除</string>
     <string name="empty">清空</string>
+    <string name="confirmed">确诊</string>
+    <string name="suspected">疑似</string>
 </resources>

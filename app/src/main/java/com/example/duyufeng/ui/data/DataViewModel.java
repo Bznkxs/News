@@ -7,61 +7,106 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import com.example.duyufeng.PandemicData;
 import com.example.duyufeng.SimplePandemicData;
+import com.example.duyufeng.StatInfo;
+import com.example.duyufeng.UrlToJson;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.Random;
+import java.io.IOException;
+import java.util.*;
 
-public class DataViewModel extends ViewModel {
-    private HashMap<String, PandemicData> domesticData;
-    private MutableLiveData<HashMap<String, PandemicData>> domestic;
-    private HashMap<String, PandemicData> internationalData;
-    private MutableLiveData<HashMap<String, PandemicData>> international;
+public class DataViewModel extends ViewModel implements Loader.Test {
+    ArrayList<StatInfo> chinese=new ArrayList<StatInfo>();
+    ArrayList<StatInfo> foreign=new ArrayList<StatInfo>();
+    MutableLiveData<ArrayList<StatInfo>> chineseData=new MutableLiveData<>();
+    MutableLiveData<ArrayList<StatInfo>> foreignData=new MutableLiveData<>();
+    public DataViewModel() throws IOException, JSONException {
+        chineseData.setValue(chinese);
+        foreignData.setValue(foreign);
+        refresh();
+    }
+    public void refresh() throws IOException, JSONException {
+        Loader loader = new Loader(this);
+        loader.start();
+    }
 
-    Random rng = new Random();
+    public void onLoadFinished(ArrayList<StatInfo> c, ArrayList<StatInfo> f) {
+        chinese = c;
+        foreign = f;
+        chineseData.postValue(chinese);
+        foreignData.postValue(foreign);
+    }
 
-    public LiveData<HashMap<String, PandemicData>> getDomestic() {
-        if (domestic == null) {
-            domestic = new MutableLiveData<>();
-            domesticData = new HashMap<>();
-            loadDomestic();
+    public LiveData<ArrayList<StatInfo>> getDomestic() {
+        return chineseData;
+    }
+
+    public LiveData<ArrayList<StatInfo>> getInternational() {
+        return foreignData;
+    }
+
+
+
+
+}
+
+class Loader extends Thread {
+    // multithread programming
+    private final Test test;
+    ArrayList<StatInfo> chinese=new ArrayList<StatInfo>();
+    ArrayList<StatInfo> foreign=new ArrayList<StatInfo>();
+
+    public interface Test{
+        void onLoadFinished(ArrayList<StatInfo> chinese, ArrayList<StatInfo> foreign);
+    }
+
+    public Loader(DataViewModel model) {
+        test = model;
+    }
+
+    private void refresh() throws IOException, JSONException {
+        JSONObject o = UrlToJson.parse("https://covid-dashboard.aminer.cn/api/dist/epidemic.json");
+        JSONArray names=o.names();
+        for(int i = 0; i< Objects.requireNonNull(names).length(); ++i){
+            String key=names.getString(i);
+            JSONArray a=o.getJSONObject(key).getJSONArray("data");
+            a=a.getJSONArray(a.length()-1);
+            String CONFIRMED=a.getString(0);
+            String SUSPECTED=a.getString(1);
+            String CURED=a.getString(2);
+            String DEAD=a.getString(3);
+            String[] arr=key.split("\\|");
+            StatInfo tmp=new StatInfo(null,CONFIRMED,SUSPECTED,CURED,DEAD);
+            if(arr[0].equals("China")&&arr.length==2){
+                tmp.name=arr[1];
+                chinese.add(tmp);
+            }
+            else if(!arr[0].equals("China")&&arr.length==1){
+                tmp.name=arr[0];
+                foreign.add(tmp);
+            }
         }
-        return domestic;
+        chinese.sort(new Comparator<StatInfo>() {
+            @Override
+            public int compare(StatInfo o1, StatInfo o2) {
+                return -Integer.valueOf(o1.getCONFIRMED()).compareTo(Integer.parseInt(o2.getCONFIRMED()));
+            }
+        });
     }
 
-
-    public void loadDomestic() {
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-        for (String i : domesticData.keySet()) {
-            domesticData.put(i, new SimplePandemicData(i));
+    public void run() {
+        try {
+            refresh();
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
         }
-        domestic.postValue(domesticData);
+        finished();
     }
 
-    public LiveData<HashMap<String, PandemicData>> getInternational() {
-        if (international == null) {
-            international = new MutableLiveData<>();
-            internationalData = new HashMap<>();
-            loadInternational();
+    public void finished() {
+        if(test != null){
+            test.onLoadFinished(chinese, foreign);
         }
-        return international;
-    }
-
-    public void putInternational(String s) {
-        internationalData.put(s, null);
-    }
-
-    public void putDomestic(String s) {
-        domesticData.put(s, null);
-    }
-
-    public void loadInternational() {
-        for (String i : internationalData.keySet()) {
-            internationalData.put(i, new SimplePandemicData(i));
-        }
-        international.postValue(internationalData);
     }
 }

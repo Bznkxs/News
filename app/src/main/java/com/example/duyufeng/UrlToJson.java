@@ -52,6 +52,8 @@ public class UrlToJson {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return new JSONObject(th.res);
+        if (th.res != null)
+            return new JSONObject(th.res);
+        else return null;
     }
 }

@@ -6,10 +6,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
-public class DataAdapter extends RecyclerView.Adapter<DataAdapter.MyViewHolder> {
-    private LinkedList<PandemicData> data;
+public class DataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private ArrayList<StatInfo> data;
     public static int TYPE_HEADER = 0, TYPE_NORMAL = 1;
     private View header;
 
@@ -19,20 +19,15 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.MyViewHolder> 
     // you provide access to all the views for a data item in a view holder
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public TextView txtName, txtActive, txtOverall, txtDeath, txtCured,
-                        txtNewActive, txtNewCases, txtNewDeath, txtNewCured;
+        public TextView txtName, txtConfirmed, txtSuspected, txtDeath, txtCured;
         public com.example.duyufeng.DataItemLayout view;
         public MyViewHolder(View v) {
             super(v);
             txtName = v.findViewById(R.id.textRegion);
-            txtActive = v.findViewById(R.id.textActiveCases);
-            txtNewActive = v.findViewById(R.id.textNewActive);
-            txtOverall = v.findViewById(R.id.textOverallCases);
-            txtNewCases = v.findViewById(R.id.textNewCases);
+            txtConfirmed = v.findViewById(R.id.textConfirmed);
+            txtSuspected = v.findViewById(R.id.textSuspected);
             txtDeath = v.findViewById(R.id.textDeaths);
-            txtNewDeath = v.findViewById(R.id.textNewDeaths);
             txtCured = v.findViewById(R.id.textCured);
-            txtNewCured = v.findViewById(R.id.textNewCured);
             view     = (com.example.duyufeng.DataItemLayout)v;
         }
         public MyViewHolder(View v, int dumb) {
@@ -40,14 +35,14 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.MyViewHolder> 
         }
     }
 
-    public static class HeaderHolder extends MyViewHolder {
+    public static class HeaderHolder extends RecyclerView.ViewHolder {
 
         public HeaderHolder(View v) {
-            super(v, 0);
+            super(v);
         }
     }
 
-    public DataAdapter(LinkedList<PandemicData> myDataset) {
+    public DataAdapter(ArrayList<StatInfo> myDataset) {
         data = myDataset;
     }
 
@@ -61,8 +56,8 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.MyViewHolder> 
     }
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent,
-                                           int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                      int viewType) {
         if(header != null && viewType == TYPE_HEADER)
             return new HeaderHolder(header);
         // create a new view
@@ -77,21 +72,18 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.MyViewHolder> 
         return header == null ? pos : pos - 1;
     }
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == TYPE_HEADER)
             return;
-        position = getPosition(holder);
-        PandemicData pos = data.get(position);
+        MyViewHolder mholder = (MyViewHolder) holder;
+        position = getPosition(mholder);
+        StatInfo pos = data.get(position);
         if (pos != null) {
-            holder.txtName.setText(pos.getName());
-            holder.txtActive.setText(String.valueOf(pos.getActiveCases()));
-            holder.txtNewActive.setText(valueOf(pos.getNewActiveCases()));
-            holder.txtOverall.setText(String.valueOf(pos.getOverallCases()));
-            holder.txtNewCases.setText(valueOf(pos.getNewCases()));
-            holder.txtDeath.setText(String.valueOf(pos.getDeaths()));
-            holder.txtNewDeath.setText(valueOf(pos.getNewDeaths()));
-            holder.txtCured.setText(String.valueOf(pos.getCured()));
-            holder.txtNewCured.setText(valueOf(pos.getNewCured()));
+            mholder.txtName.setText(pos.getName());
+            mholder.txtConfirmed.setText(pos.getCONFIRMED());
+            mholder.txtSuspected.setText(pos.getSUSPECTED());
+            mholder.txtDeath.setText(pos.getDEAD());
+            mholder.txtCured.setText(pos.getCURED());
         }
 
     }

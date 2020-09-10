@@ -1,8 +1,8 @@
 package com.example.duyufeng;
 
-public class StatInfo {
-    String name,CONFIRMED,SUSPECTED,CURED,DEAD;
-    StatInfo(String name,String CONFIRMED,String SUSPECTED,String CURED,String DEAD){
+public class StatInfo  {
+    public String name,CONFIRMED,SUSPECTED,CURED,DEAD;
+    public StatInfo(String name, String CONFIRMED, String SUSPECTED, String CURED, String DEAD){
         this.name=name;
         this.CONFIRMED=CONFIRMED;
         this.SUSPECTED=SUSPECTED;
