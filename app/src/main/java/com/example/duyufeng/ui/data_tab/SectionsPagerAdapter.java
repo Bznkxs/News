@@ -34,7 +34,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 return DomesticFragment.newInstance(position);
 
             case 2:
-                return International.newInstance();
+                return InternationalFragment.newInstance();
             default:
                 return null;
         }

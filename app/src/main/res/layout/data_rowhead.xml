@@ -3,7 +3,7 @@
               xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:orientation="horizontal">
+              android:orientation="vertical">
     <TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent" android:stretchColumns="*">
@@ -14,8 +14,14 @@
             <TextView
                     android:text="@string/region"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" android:id="@+id/textRegion" android:textAlignment="center"
-                    android:gravity="center|center_vertical" android:textColor="#000000"/>
+                    android:layout_height="match_parent"
+                    android:id="@+id/textRegion"
+                    android:textAlignment="center"
+                    android:gravity="center|center_vertical"
+                    android:textColor="#000000"
+                    android:maxWidth="32dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
             <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
@@ -24,7 +30,8 @@
                         android:text="@string/active"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" android:id="@+id/textActiveCases"
-                        android:textAlignment="center" android:textColor="#FF8522"/>
+                        android:textAlignment="center" android:textColor="#FF8522" android:maxWidth="32dp"
+                        android:textSize="16sp" android:textStyle="bold"/>
             </LinearLayout>
             <LinearLayout
                     android:orientation="vertical"
@@ -34,7 +41,8 @@
                         android:text="@string/overall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" android:id="@+id/textOverallCases"
-                        android:textAlignment="center" android:textColor="#BE0D00"/>
+                        android:textAlignment="center" android:textColor="#BE0D00" android:maxWidth="32dp"
+                        android:textSize="16sp" android:textStyle="bold"/>
             </LinearLayout>
             <LinearLayout
                     android:orientation="vertical"
@@ -44,8 +52,9 @@
                         android:text="@string/death"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" android:id="@+id/textDeaths"
-                        android:textAlignment="center" android:textColor="#4D000000"
-                        android:textAllCaps="false"/>
+                        android:textAlignment="center" android:textColor="#9D000000"
+                        android:textAllCaps="false" android:maxWidth="32dp" android:textSize="16sp"
+                        android:textStyle="bold"/>
             </LinearLayout>
             <LinearLayout
                     android:orientation="vertical"
@@ -55,9 +64,21 @@
                         android:text="@string/cured"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" android:id="@+id/textCured"
-                        android:textAlignment="center" android:textColor="#00AD07"/>
+                        android:textAlignment="center" android:textColor="#00AD07" android:textSize="16sp"
+                        android:textStyle="bold"/>
             </LinearLayout>
         </TableRow>
     </TableLayout>
+    <View
+            android:layout_width="wrap_content"
+            android:layout_height="5dp" android:layout_weight="1"/>
+    <View
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"  android:layout_weight="1"
+            android:background="#000000"/>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="5dp"  android:layout_weight="1"/>
+
 </LinearLayout>
 

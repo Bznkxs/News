@@ -32,7 +32,7 @@ public class DataFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(view.getContext(), getFragmentManager());
-        ViewPager viewPager = view.findViewById(R.id.view_pager);
+        ViewPager viewPager = view.findViewById(R.id.view_pager_data);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = view.findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);

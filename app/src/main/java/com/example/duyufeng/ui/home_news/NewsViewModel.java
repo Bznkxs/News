@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import com.example.duyufeng.NewsItem;
-import com.example.duyufeng.NewsItemList;
+import com.example.duyufeng.myApplication;
 import com.example.duyufeng.SimpleNews;
 import com.example.duyufeng.SimpleNewsItem;
 
@@ -12,15 +12,15 @@ import java.util.LinkedList;
 
 public class NewsViewModel extends ViewModel {
     // TODO: 这个的用法是xxx.list，可以当作LinkedList来使用。
-    private NewsItemList newsItemList;
-    private MutableLiveData<NewsItemList> newsItems;
+    private LinkedList<NewsItem> newsItemList;
+    private MutableLiveData<LinkedList<NewsItem>> newsItems;
 
     public NewsViewModel() {}
     public NewsViewModel(NewsViewModel model) {
         newsItemList = model.newsItemList;
         newsItems = model.newsItems;
     }
-    public LiveData<NewsItemList> getNewsItems() {
+    public LiveData<LinkedList<NewsItem>> getNewsItems() {
         if (newsItems == null) {
             newsItems = new MutableLiveData<>();
             loadLatestNewsItems();
@@ -42,11 +42,11 @@ public class NewsViewModel extends ViewModel {
          */
         int n = 10;
         if (newsItemList == null) {
-            newsItemList = new NewsItemList();
+            newsItemList = new LinkedList<NewsItem>();
         }
         for (int i = 0; i < n; ++i) {
-            newsItemList.list.add(new SimpleNewsItem(
-                    new SimpleNews("news" + newsItemList.list.size(),
+            newsItemList.add(new SimpleNewsItem(
+                    new SimpleNews("news" + newsItemList.size(),
                             "2018-01-01",
                             "Bznkxs" + i,
                             "abst",
@@ -68,11 +68,11 @@ public class NewsViewModel extends ViewModel {
         }
         int n = 10;
         if (newsItemList == null) {
-            newsItemList = new NewsItemList();
+            newsItemList = new LinkedList<NewsItem>();
         }
         for (int i = 0; i < n; ++i) {
-            newsItemList.list.add(new SimpleNewsItem(
-                    new SimpleNews("MoreNews" + newsItemList.list.size(),
+            newsItemList.add(new SimpleNewsItem(
+                    new SimpleNews("MoreNews" + newsItemList.size(),
                             "2018-01-01",
                             "Bznkxs" + i,
                             "abst",

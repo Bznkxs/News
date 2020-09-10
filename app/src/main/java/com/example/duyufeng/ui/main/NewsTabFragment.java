@@ -58,7 +58,7 @@ public class NewsTabFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        NewsAdapter adapter = new NewsAdapter(dataViewModel.getNewsItems().getValue().list);
+        NewsAdapter adapter = new NewsAdapter(dataViewModel.getNewsItems().getValue());
         recyclerView.setAdapter(adapter);
 
         SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipe_refresh_layout);
@@ -84,8 +84,8 @@ public class NewsTabFragment extends Fragment {
                     }
                 }, 1000);
 
-                NewsItemList list = (NewsItemList)(Objects.requireNonNull(getActivity()).getApplication());
-                list.list = dataViewModel.getNewsItems().getValue().list;
+                myApplication list = (myApplication)(Objects.requireNonNull(getActivity()).getApplication());
+                list.list = dataViewModel.getNewsItems().getValue();
             }
         });
 
@@ -95,7 +95,7 @@ public class NewsTabFragment extends Fragment {
             public void onLoadMore() {
                 adapter.setLoadState(adapter.LOADING);
 
-                if (dataViewModel.getNewsItems().getValue().list.size() < 44444) {
+                if (dataViewModel.getNewsItems().getValue().size() < 44444) {
                     // 模拟获取网络数据，延时1s
                     new Timer().schedule(new TimerTask() {
                         @Override
@@ -114,21 +114,21 @@ public class NewsTabFragment extends Fragment {
                     // 显示加载到底的提示
                     adapter.setLoadState(adapter.LOADING_END);
                 }
-                NewsItemList list = (NewsItemList)(Objects.requireNonNull(getActivity()).getApplication());
-                list.list = dataViewModel.getNewsItems().getValue().list;
+                myApplication list = (myApplication)(Objects.requireNonNull(getActivity()).getApplication());
+                list.list = dataViewModel.getNewsItems().getValue();
             }
         });
 
 
-        dataViewModel.getNewsItems().observe(getViewLifecycleOwner(), new Observer<NewsItemList>() {
+        dataViewModel.getNewsItems().observe(getViewLifecycleOwner(), new Observer<LinkedList<NewsItem>>() {
             @Override
-            public void onChanged(@Nullable NewsItemList s) {
+            public void onChanged(@Nullable LinkedList<NewsItem> s) {
 
             }
         });
 
-        NewsItemList list = (NewsItemList)(Objects.requireNonNull(getActivity()).getApplication());
-        list.list = dataViewModel.getNewsItems().getValue().list;
+        myApplication list = (myApplication)(Objects.requireNonNull(getActivity()).getApplication());
+        list.list = dataViewModel.getNewsItems().getValue();
         return root;
 
     }

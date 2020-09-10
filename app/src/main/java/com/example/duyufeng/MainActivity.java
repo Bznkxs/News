@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.Button;
@@ -49,9 +50,11 @@ public class MainActivity extends AppCompatActivity {
         // Get the SearchView and set the searchable configuration
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchView = (SearchView) menu.findItem(R.id.search_bar).getActionView();
-        // Assumes current activity is the searchable activity
+
         searchView.setSearchableInfo(searchManager.getSearchableInfo(new ComponentName(this, SearchActivity.class)));
+        searchView.setIconifiedByDefault(false);
         searchView.setQueryHint(getResources().getString(R.string.search_hint));
+
         return true;
     }
     @Override
@@ -80,12 +83,17 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
+
+        // TODO: 这里我想让只有切换到新闻、图谱时才出现搜索按钮，但是不能直接控制searchbar
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
+               // Drawable drawable = getDrawable(R.drawable.ic_search);
+               // int alpha = 0;
                 switch (destination.getId()) {
                     case R.id.navigation_news:
                         setTitle(R.string.title_news);
+                //        alpha = 255;
                         break;
                     case R.id.navigation_data:
                         setTitle(R.string.title_data);
@@ -93,9 +101,11 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.navigation_trend:
                         setTitle(R.string.title_trend);
+
                         break;
                     case R.id.navigation_graph:
                         setTitle(R.string.title_graph);
+                //        alpha = 255;
                         break;
                     case R.id.navigation_settings:
                         setTitle(R.string.title_settings);

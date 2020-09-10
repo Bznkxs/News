@@ -83,14 +83,20 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.MyViewHolder> 
         position = getPosition(holder);
         holder.txtName.setText(data.get(position).getName());
         holder.txtActive.setText(String.valueOf(data.get(position).getActiveCases()));
-        holder.txtNewActive.setText(String.valueOf(data.get(position).getNewActiveCases()));
+        holder.txtNewActive.setText(valueOf(data.get(position).getNewActiveCases()));
         holder.txtOverall.setText(String.valueOf(data.get(position).getOverallCases()));
-        holder.txtNewCases.setText(String.valueOf(data.get(position).getNewCases()));
+        holder.txtNewCases.setText(valueOf(data.get(position).getNewCases()));
         holder.txtDeath.setText(String.valueOf(data.get(position).getDeaths()));
-        holder.txtNewDeath.setText(String.valueOf(data.get(position).getNewDeaths()));
+        holder.txtNewDeath.setText(valueOf(data.get(position).getNewDeaths()));
         holder.txtCured.setText(String.valueOf(data.get(position).getCured()));
-        holder.txtNewCured.setText(String.valueOf(data.get(position).getNewCured()));
+        holder.txtNewCured.setText(valueOf(data.get(position).getNewCured()));
 
+    }
+
+    String valueOf(long num) {
+        String str = String.valueOf(num);
+        if (num >= 0) str = "+" + str;
+        return str;
     }
 
     @Override

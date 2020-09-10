@@ -34,6 +34,7 @@ public class SearchActivity extends AppCompatActivity {
             SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this,
                     com.example.duyufeng.MySuggestionProvider.AUTHORITY, com.example.duyufeng.MySuggestionProvider.MODE);
             suggestions.saveRecentQuery(query, null);
+
             doMySearch(query);
         }
 
@@ -50,14 +51,14 @@ public class SearchActivity extends AppCompatActivity {
         // Assumes current activity is the searchable activity
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
-
+        searchView.setQueryHint(getResources().getString(R.string.search_hint));
         return true;
     }
 
 
     void doMySearch(String query) {
-        NewsItemList list;
-        list = (NewsItemList)getApplication();
+        myApplication list;
+        list = (myApplication)getApplication();
         // TODO: list是我们的新闻列表。用list来搜索。
         Toast.makeText(this, "Query: "+query + "; 现有新闻数=" + list.list.size(), Toast.LENGTH_SHORT).show();
 
