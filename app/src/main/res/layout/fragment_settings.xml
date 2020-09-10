@@ -14,6 +14,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="4dp"/>
         <Button
+                android:text="调整新闻标签页"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/btnChangeTab"
+                style="@style/Widget.AppCompat.Button.Borderless" android:background="#04000000"/>
+        <Space
+                android:layout_width="match_parent"
+                android:layout_height="16dp"/>
+        <Button
                 android:text="查看已缓存的内容"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/btnViewCached"

@@ -2,14 +2,21 @@ package com.example.duyufeng;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.LinkedList;
 
 public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -82,20 +89,23 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public NewsAdapter(LinkedList<News> myDataset, String Filter) {
         filter = Filter;
         data = new LinkedList<>();
-        for (News i : myDataset) {
-            if (i.getType().equals(Filter))
-                data.add(i);
+        if (myDataset != null) {
+            for (News i : myDataset) {
+                if (i.getType().equals(Filter))
+                    data.add(i);
+            }
         }
+
         oData = myDataset;
     }
 
     public void refresh() {
-        if (filter.equals(""))
-            return;
-        data = new LinkedList<>();
-        for (News i : oData) {
-            if (i.getType().equals(filter))
-                data.add(i);
+        if (!filter.equals("")) {
+            data = new LinkedList<>();
+            for (News i : oData) {
+                if (i.getType().equals(filter))
+                    data.add(i);
+            }
         }
     }
 

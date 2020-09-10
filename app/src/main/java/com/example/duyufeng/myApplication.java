@@ -10,4 +10,6 @@ public class myApplication extends Application {
     public NewsProvider provider;
     public int navId;
     public News detailNews;
+
+    public int tabConfig = 3;
 }

@@ -15,7 +15,8 @@ import com.example.duyufeng.R;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3};
+    private static int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3};
+    int len = 3;
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
@@ -47,6 +48,19 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return TAB_TITLES.length;
+        return len;
+    }
+
+    public void setConfiguration(int tabConfig) {
+        TAB_TITLES = new int[3];
+        len = 0;
+        if ((tabConfig & 2) == 2) {
+            TAB_TITLES[len] = R.string.tab_text_1;
+            ++len;
+        }
+        if ((tabConfig & 1) == 1) {
+            TAB_TITLES[len] = R.string.tab_text_2;
+            ++len;
+        }
     }
 }

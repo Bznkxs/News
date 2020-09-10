@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 import com.example.duyufeng.R;
+import com.example.duyufeng.myApplication;
 import com.example.duyufeng.ui.main.SectionsPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 
@@ -37,12 +38,26 @@ public class NewsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         sectionsPagerAdapter = new SectionsPagerAdapter(view.getContext(), getFragmentManager());
+        sectionsPagerAdapter.setConfiguration(((myApplication) getActivity().getApplication()).tabConfig);
         ViewPager viewPager = view.findViewById(R.id.view_pager_news);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = view.findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-        for (int i = 0; i < sectionsPagerAdapter.getCount(); ++i)
-            sectionsPagerAdapter.getItem(i);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 }

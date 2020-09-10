@@ -50,9 +50,9 @@ public class EntityActivity extends AppCompatActivity {
         affixView.setText("实体");
         descView.setText(node.getDescription());
 
-        if (node.getImg() != null && node.getImg().length() > 3) {
-            Toast.makeText(this, "Get Image from: " + node.getImg(), Toast.LENGTH_SHORT).show();
-        }
+//        if (node.getImg() != null && node.getImg().length() > 3) {
+//            Toast.makeText(this, "Get Image from: " + node.getImg(), Toast.LENGTH_SHORT).show();
+//        }
         // show The Image in a ImageView
         new DownloadImageTask(imageView)
                 .execute(node.getImg());
@@ -90,7 +90,7 @@ public class EntityActivity extends AppCompatActivity {
                 String id = i.getLabel();
                 itemFromOthers.add(new NodeShowPair(showVal, id));
             }
-            Toast.makeText(EntityActivity.this, "changed", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(EntityActivity.this, "changed", Toast.LENGTH_SHORT).show();
 
             findViewById(R.id.pb_loading2).setVisibility(View.GONE);
         }
@@ -208,7 +208,7 @@ public class EntityActivity extends AppCompatActivity {
         }
         //把高度赋值给布局参数
         params.height = height;
-        Toast.makeText(this, String.valueOf(params.height), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, String.valueOf(params.height), Toast.LENGTH_SHORT).show();
         //把布局参数回传给listView
         listView.setLayoutParams(params);
         //listView按照参数从新布局

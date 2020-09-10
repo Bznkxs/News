@@ -1,5 +1,6 @@
 package com.example.duyufeng.ui.main;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -63,9 +64,45 @@ public class NewsTabFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        int j = 1;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        int i = 1;
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        int i = 1;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        int i = 1;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        int i = 1;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        int i = 1;
     }
 
     @Override
@@ -100,22 +137,10 @@ public class NewsTabFragment extends Fragment {
             public void onRefresh() {
                 // 刷新数据。这里调用的是最新的数据
                 dataViewModel.loadLatestNewsItems();
-
-                // 延时1s关闭下拉刷新
-                swipeRefreshLayout.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
-                            swipeRefreshLayout.setRefreshing(false);
-                        }
-                    }
-                }, 1000);
-
-                myApplication list = (myApplication)(Objects.requireNonNull(getActivity()).getApplication());
-                list.list = dataViewModel.getNewsItems().getValue();
-
             }
         });
+
+        swipeRefreshLayout.setRefreshing(true);
 
         // 上拉加载
         recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
@@ -142,8 +167,6 @@ public class NewsTabFragment extends Fragment {
                     // 显示加载到底的提示
                     adapter.setLoadState(adapter.LOADING_END);
                 }
-                myApplication list = (myApplication)(Objects.requireNonNull(getActivity()).getApplication());
-                list.list = dataViewModel.getNewsItems().getValue();
             }
         });
 
@@ -152,6 +175,20 @@ public class NewsTabFragment extends Fragment {
             public void onChanged(LinkedList<News> news) {
                 adapter.notifyDataSetChanged();
                 adapter.refresh();
+
+                myApplication list = (myApplication)(Objects.requireNonNull(getActivity()).getApplication());
+                list.list = dataViewModel.getNewsItems().getValue();
+
+                if (!dataViewModel.firstrun)
+                    // 延时1s关闭下拉刷新
+                    swipeRefreshLayout.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
+                                swipeRefreshLayout.setRefreshing(false);
+                            }
+                        }
+                    }, 100);
             }
         });
 

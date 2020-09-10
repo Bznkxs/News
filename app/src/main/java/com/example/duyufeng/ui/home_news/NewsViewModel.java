@@ -17,7 +17,7 @@ public class NewsViewModel extends ViewModel {
 
 
     public NewsProvider provider; // 需要赋值给它
-
+    public boolean firstrun = true;
 
     public NewsViewModel() { newsItemList = new LinkedList<>(); }
     public NewsViewModel(NewsViewModel model) {
@@ -27,6 +27,9 @@ public class NewsViewModel extends ViewModel {
     public LiveData<LinkedList<News>> getNewsItems() {
         if (newsItems == null) {
             newsItems = new MutableLiveData<>();
+            newsItemList.clear();
+            newsItemList.addAll(provider.pool);
+            newsItems.setValue(newsItemList);
             loadLatestNewsItems();
         }
         return newsItems;
@@ -36,30 +39,44 @@ public class NewsViewModel extends ViewModel {
     // 步骤1：更新newsItemList
     // 步骤2：更新newsItems（最后一句话）
     public void loadLatestNewsItems() {
-        if (newsItemList == null)
-            newsItemList = new LinkedList<>();
-        try {
-            provider.refreshNews(20);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        newsItemList.clear();
-        newsItemList.addAll(provider.pool);
-        newsItems.setValue(newsItemList); // 步骤2
+        Thread myThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (newsItemList == null)
+                    newsItemList = new LinkedList<>();
+                try {
+                    provider.refreshNews(10);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                newsItemList.clear();
+                newsItemList.addAll(provider.pool);
+                firstrun = false;
+                newsItems.postValue(newsItemList); // 步骤2
+
+            }
+        });
+        myThread.start();
     }
 
     // TODO: 在这里得到更多新闻列表。
     // 步骤1：更新newsItemList
     // 步骤2：更新newsItems（最后一句话）
     public void loadMoreNewsItems() {
-        try {
-            provider.moreNews(20);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        newsItemList.clear();
-        newsItemList.addAll(provider.pool);
-        newsItems.setValue(newsItemList);
+        Thread myThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    provider.moreNews(20);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                newsItemList.clear();
+                newsItemList.addAll(provider.pool);
+                newsItems.postValue(newsItemList); // 步骤2
+            }
+        });
+        myThread.start();
     }
 
 }

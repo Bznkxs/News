@@ -1,5 +1,6 @@
 package com.example.duyufeng;
 
+import android.app.Dialog;
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.provider.SearchRecentSuggestions;
 import android.view.*;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -184,6 +186,51 @@ public class MainActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
+    }
+
+    public void ManageTabs(View view) {
+        // Toast.makeText(view.getContext(),"You clicked `...'!", Toast.LENGTH_SHORT).show();
+        final Dialog dialog = new Dialog(view.getContext());
+        LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view1 = inflater.inflate(R.layout.dialog_manage_tabs, null);
+        dialog.setContentView(view1);
+        dialog.show();
+        Button button = dialog.findViewById(R.id.btnConfirm);
+        myApplication list = (myApplication) getApplication();
+        final int[] w = {list.tabConfig};
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                list.tabConfig = w[0];
+                dialog.dismiss();
+            }
+        });
+
+        Button button1 = dialog.findViewById(R.id.btnCancel);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                w[0] = list.tabConfig;
+                dialog.dismiss();
+            }
+        });
+
+        CheckBox b1 = dialog.findViewById(R.id.checkBox);
+        CheckBox b2 = dialog.findViewById(R.id.checkBox2);
+        b1.setChecked(w[0] >= 2);
+        b2.setChecked((w[0] & 1) == 1);
+        View.OnClickListener listener =  new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                w[0] = 0;
+                if (b1.isChecked())
+                    w[0] += 2;
+                if (b2.isChecked())
+                    w[0] += 1;
+            }
+        };
+        b1.setOnClickListener(listener);
+        b2.setOnClickListener(listener);
     }
 
 }

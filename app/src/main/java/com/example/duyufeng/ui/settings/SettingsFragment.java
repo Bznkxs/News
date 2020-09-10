@@ -29,6 +29,7 @@ public class SettingsFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_settings, container, false);
         Button viewCached = root.findViewById(R.id.btnViewCached);
         Button delCache = root.findViewById(R.id.btnDelSearch);
+        Button changeTab = root.findViewById(R.id.btnChangeTab);
 
         delCache.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,6 +43,12 @@ public class SettingsFragment extends Fragment {
             public void onClick(View v) {
 
                 startActivity(new Intent(getActivity(), CacheActivity.class));
+            }
+        });
+
+        changeTab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).ManageTabs(v);
             }
         });
 

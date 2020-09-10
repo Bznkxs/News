@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="410dp"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+
+    <androidx.core.widget.NestedScrollView
+            android:layout_width="410dp"
+            android:layout_height="match_parent" android:fillViewport="true">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="vertical">
+            <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"/>
+            <TextView
+                    android:text="可以在此管理想要显示的标签页。"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/textView" android:gravity="center"/>
+
+            <CheckBox
+                    android:text="news"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/checkBox"
+                    android:gravity="center|center_horizontal" android:layout_gravity="center"/>
+            <CheckBox
+                    android:text="paper"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/checkBox2"
+                    android:gravity="center|center_horizontal" android:layout_gravity="center"/>
+            <View android:layout_width="match_parent"
+                  android:layout_height="5dp"
+                  android:background="@color/config_color_gray_9"/>
+            <Button
+                    android:text="确定"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btnConfirm"
+                    android:background="?attr/selectableItemBackground"/>
+            <View android:layout_width="match_parent"
+                  android:layout_height="1dp"
+                  android:background="@color/config_color_gray_9" android:id="@+id/view"/>
+            <Button
+                    android:text="取消"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btnCancel"
+                    android:background="?attr/selectableItemBackground"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>
+

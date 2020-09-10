@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.LinkedList;
 
@@ -117,6 +118,11 @@ public class SearchActivity extends AppCompatActivity {
 
         myApplication list = (myApplication) getApplication();
         News item = ((NewsItemLayout)(view.getParent().getParent().getParent().getParent())).item;
+        try {
+            item.saveContent();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         list.detailNews = item;
         startActivity(new Intent(this, DetailNewsActivity.class));
     }
