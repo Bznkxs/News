@@ -31,10 +31,6 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content" app:srcCompat="@android:drawable/ic_menu_myplaces"
-                        android:id="@+id/imageView3" android:minWidth="100dp"/>
                 <Space
                         android:layout_width="10dp"
                         android:layout_height="wrap_content"/>
@@ -54,6 +50,13 @@
                             android:text="status"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" android:id="@+id/txtStatus" android:layout_weight="1"/>
+                    <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="15dp" android:layout_weight="1"/>
+                    <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" app:srcCompat="@android:drawable/ic_menu_myplaces"
+                            android:id="@+id/imageView3" android:minWidth="100dp" android:maxWidth="240dp"/>
                 </LinearLayout>
             </LinearLayout>
             <Space

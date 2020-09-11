@@ -59,6 +59,7 @@ public class Trend extends AppCompatActivity {
             public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
                 MyViewHolder holder1 = (MyViewHolder)holder;
                 String txt = texts[position].t;
+                if (txt == null) return;
                 if (txt.length() > 20) txt = txt.substring(0, 19) + "...";
                 holder1.view.setText(txt);
                 holder1.view.setOnClickListener(new View.OnClickListener() {

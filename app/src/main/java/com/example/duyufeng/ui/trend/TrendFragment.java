@@ -44,7 +44,8 @@ public class TrendFragment extends Fragment {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                String[] words = eachline.split(" "); // 第一行：关键词
+
+                String words = eachline.replace(' ', ','); // 第一行：关键词
                 try {
                     eachline = bufferedReader.readLine();
                 } catch (IOException e) {
@@ -54,9 +55,9 @@ public class TrendFragment extends Fragment {
                     try {
                         eachline = bufferedReader.readLine();
                         // 每行一个新闻
-                        for (String s : words) {
-                            WordMap.getWords(s).news.add(WordMap.getTexts(eachline));
-                            WordMap.getTexts(eachline).words.add(WordMap.getWords(s));
+                        {
+                            WordMap.getWords(words).news.add(WordMap.getTexts(eachline));
+                            WordMap.getTexts(eachline).words.add(WordMap.getWords(words));
                         }
 
                     } catch (IOException e) {
