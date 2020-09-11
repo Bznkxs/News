@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -39,25 +40,21 @@ public class NewsFragment extends Fragment {
         sectionsPagerAdapter = new SectionsPagerAdapter(view.getContext(), getChildFragmentManager());
         //sectionsPagerAdapter = new SectionsPagerAdapter(view.getContext(), getFragmentManager());
         sectionsPagerAdapter.setConfiguration(((myApplication) getActivity().getApplication()).tabConfig);
+        myApplication list = (myApplication) getActivity().getApplication();
+        list.adapter = sectionsPagerAdapter;
+        sectionsPagerAdapter.view = view;
         ViewPager viewPager = view.findViewById(R.id.view_pager_news);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = view.findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    }
 
-            }
+    @Override
+    public void onResume() {
+        super.onResume();
+        Toast.makeText(this.getContext(), "RESUME", Toast.LENGTH_SHORT).show();
+        sectionsPagerAdapter.setConfiguration(((myApplication) getActivity().getApplication()).tabConfig);
+        sectionsPagerAdapter.notifyDataSetChanged();
 
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
     }
 }

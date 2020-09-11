@@ -32,8 +32,8 @@
             tools:layout="@layout/fragment_graph"/>
 
     <fragment
-            android:id="@+id/navigation_settings"
-            android:name="com.example.duyufeng.ui.settings.SettingsFragment"
+            android:id="@+id/navigation_people"
+            android:name="com.example.duyufeng.ui.people.PeopleFragment"
             android:label="@string/title_settings"
-            tools:layout="@layout/fragment_settings"/>
+            tools:layout="@layout/fragment_people"/>
 </navigation>

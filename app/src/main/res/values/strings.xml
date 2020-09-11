@@ -38,4 +38,12 @@
     <string name="empty">清空</string>
     <string name="confirmed">确诊</string>
     <string name="suspected">疑似</string>
+    <string name="title_people">学者</string>
+    <string name="activity">学术活跃度：</string>
+    <string name="cited">引用数：</string>
+    <string name="diversity">多样性：</string>
+    <string name="gindex">gIndex:</string>
+    <string name="hindex">hIndex:</string>
+    <string name="sociability">社会性：</string>
+    <string name="pubs">发表刊物：</string>
 </resources>

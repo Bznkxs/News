@@ -1,6 +1,7 @@
 package com.example.duyufeng;
 
 import android.app.Application;
+import com.example.duyufeng.ui.main.SectionsPagerAdapter;
 
 import java.util.LinkedList;
 
@@ -8,8 +9,11 @@ import java.util.LinkedList;
 public class myApplication extends Application {
     public LinkedList<News> list;
     public NewsProvider provider;
+    public NewsProvider providerPaper;
     public int navId;
     public News detailNews;
+    public PersonInfo personInfo;
 
     public int tabConfig = 3;
+    public SectionsPagerAdapter adapter;
 }

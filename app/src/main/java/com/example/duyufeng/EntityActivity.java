@@ -194,7 +194,7 @@ public class EntityActivity extends AppCompatActivity {
                     listItem.measure(desiredWidth, View.MeasureSpec.EXACTLY);
 
                     //累加二级条目高度
-                    totalHeight += 70 + 58 * ((((TextView)listItem.findViewById(R.id.tv_name)).getText().length() + 20) / 21);
+                    totalHeight += 74 + 58 * ((((TextView)listItem.findViewById(R.id.tv_name)).getText().length() + 20) / 21);
                 }
             }
         }

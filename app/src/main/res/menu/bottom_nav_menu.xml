@@ -22,8 +22,8 @@
             android:title="@string/title_graph"/>
 
     <item
-            android:id="@+id/navigation_settings"
-            android:icon="@drawable/ic_settings_24px"
-            android:title="@string/title_settings"/>
+            android:id="@+id/navigation_people"
+            android:icon="@drawable/ic_people_24px"
+            android:title="@string/title_people"/>
 
 </menu>

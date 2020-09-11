@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.provider.SearchRecentSuggestions;
 import android.view.*;
 import android.widget.Button;
@@ -18,11 +19,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavDestination;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.duyufeng.ui.data.DataViewModel;
+import com.example.duyufeng.ui.home_news.NewsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -33,6 +36,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView = null;
@@ -40,13 +44,12 @@ public class MainActivity extends AppCompatActivity {
     Toolbar myToolbar;
     //TabLayout tabLayout;
     BottomNavigationView navView;
+
     TextView titleView;
     SearchView searchView;
     MenuInflater inflater;
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
+    NavController navController;
+    int dId;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -85,9 +88,9 @@ public class MainActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         // 即：Up button "<-" will not be shown
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_news, R.id.navigation_trend, R.id.navigation_data, R.id.navigation_graph, R.id.navigation_settings)
+                R.id.navigation_news, R.id.navigation_trend, R.id.navigation_data, R.id.navigation_graph, R.id.navigation_people)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
 
         // TODO: 这里我想让只有切换到新闻、图谱时才出现搜索按钮，但是不能直接控制searchbar
@@ -96,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
                // Drawable drawable = getDrawable(R.drawable.ic_search);
                // int alpha = 0;
+                dId = destination.getId();
                 switch (destination.getId()) {
                     case R.id.navigation_news:
                         setTitle(R.string.title_news);
@@ -113,8 +117,8 @@ public class MainActivity extends AppCompatActivity {
                         setTitle(R.string.title_graph);
                 //        alpha = 255;
                         break;
-                    case R.id.navigation_settings:
-                        setTitle(R.string.title_settings);
+                    case R.id.navigation_people:
+                        setTitle(R.string.title_people);
                         break;
                 }
                 myApplication app = (myApplication)getApplication();
@@ -154,6 +158,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, DetailNewsActivity.class));
     }
 
+    public void toPersonView(View view) {
+        // Do something in response to button
+
+        myApplication list = (myApplication) getApplication();
+        list.personInfo = ((PeopleLayout)(view.getParent().getParent().getParent().getParent())).item;
+        startActivity(new Intent(this, PersonActivity.class));
+    }
+
 
 
     void clearHistory() {
@@ -163,10 +175,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void deleteCache(View view) {
+    public void deleteCache() {
         // Toast.makeText(view.getContext(),"You clicked `...'!", Toast.LENGTH_SHORT).show();
-        final BottomSheetDialog dialog = new BottomSheetDialog(view.getContext());
-        LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final BottomSheetDialog dialog = new BottomSheetDialog(this);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view1 = inflater.inflate(R.layout.dialog_bottom_deletecache, null);
         dialog.setContentView(view1);
         dialog.show();
@@ -184,14 +196,36 @@ public class MainActivity extends AppCompatActivity {
                 clearHistory();
                 Toast.makeText(view.getContext(), R.string.delete_complete, Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
+
             }
         });
+
+
+
+
     }
 
-    public void ManageTabs(View view) {
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_delsearch:
+                deleteCache();
+                break;
+            case R.id.action_viewcache:
+                startActivity(new Intent(this, CacheActivity.class));
+                break;
+            case R.id.action_chgtab:
+                ManageTabs();
+                break;
+        }
+        return true;
+    }
+
+    public void ManageTabs() {
         // Toast.makeText(view.getContext(),"You clicked `...'!", Toast.LENGTH_SHORT).show();
-        final Dialog dialog = new Dialog(view.getContext());
-        LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final Dialog dialog = new Dialog(this);
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view1 = inflater.inflate(R.layout.dialog_manage_tabs, null);
         dialog.setContentView(view1);
         dialog.show();
@@ -203,6 +237,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 list.tabConfig = w[0];
                 dialog.dismiss();
+                list.adapter.setConfiguration(list.tabConfig);
+                list.adapter.notifyDataSetChanged();
             }
         });
 
@@ -212,6 +248,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 w[0] = list.tabConfig;
                 dialog.dismiss();
+
             }
         });
 
@@ -227,6 +264,7 @@ public class MainActivity extends AppCompatActivity {
                     w[0] += 2;
                 if (b2.isChecked())
                     w[0] += 1;
+
             }
         };
         b1.setOnClickListener(listener);

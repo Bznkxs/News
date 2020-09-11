@@ -13,7 +13,8 @@ import java.util.stream.Collectors;
 public class NewsProvider {
     public ArrayList<NewsInfo> pool=new ArrayList<NewsInfo>();
     public HashSet<String> inpool=new HashSet<String>();
-    public ArrayList<NewsInfo> hist=new ArrayList<NewsInfo>();;
+    public ArrayList<NewsInfo> hist=new ArrayList<NewsInfo>();
+    String requestType="all";
     int pagenow=1;
     public Context context;
     public HashSet<String> savedNames = new HashSet<>();
@@ -41,9 +42,9 @@ public class NewsProvider {
             if(f.isFile()&&i.contains(".news")){
                 if (savedNames.contains(i)) {
                     try {
-                    NewsInfo ni = NewsInfo.load(this, i);
-                    pool.add(ni);
-                    inpool.add(ni.id); } catch (Exception e) {
+                        NewsInfo ni = NewsInfo.load(this, i);
+                        pool.add(ni);
+                        inpool.add(ni.id); } catch (Exception e) {
                         f.delete();
                     }
                 } else {
@@ -55,7 +56,7 @@ public class NewsProvider {
     public NewsInfo[] moreNews(int x) throws IOException, JSONException {
         ArrayList<NewsInfo> res=new ArrayList<NewsInfo>();
         while(x!=0) {
-            JSONArray a = UrlToJson.parse("https://covid-dashboard.aminer.cn/api/events/list?page=" + String.valueOf(pagenow)).getJSONArray("data");
+            JSONArray a = UrlToJson.parse("https://covid-dashboard.aminer.cn/api/events/list?type="+requestType+"&page=" + String.valueOf(pagenow)).getJSONArray("data");
             if(a.length()==0) break;
             for (int i = 0; i < a.length(); ++i) {
                 JSONObject o = a.getJSONObject(i);
@@ -76,7 +77,7 @@ public class NewsProvider {
         ArrayList<NewsInfo> res=new ArrayList<NewsInfo>();
         int beg=1;
         while(x!=0){
-            JSONArray a = UrlToJson.parse("https://covid-dashboard.aminer.cn/api/events/list?page="+String.valueOf(beg)+"&size=" + String.valueOf(x)).getJSONArray("data");
+            JSONArray a = UrlToJson.parse("https://covid-dashboard.aminer.cn/api/events/list?type="+requestType+"&page="+String.valueOf(beg)+"&size=" + String.valueOf(x)).getJSONArray("data");
             if(a.length()==0) break;
             for (int i = 0; i < a.length(); ++i) {
                 JSONObject o = a.getJSONObject(i);
@@ -136,5 +137,10 @@ public class NewsProvider {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setRequestType(String type){
+        if(requestType!=type) pagenow=1;
+        requestType=type;
     }
 }

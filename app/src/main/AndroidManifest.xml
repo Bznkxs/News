@@ -12,10 +12,14 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".CacheActivity"
-                  android:label="@string/title_activity_cache"
-                  android:parentActivityName=".MainActivity"
-                  android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".PersonActivity"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
+        <activity
+                android:name=".CacheActivity"
+                android:label="@string/title_activity_cache"
+                android:parentActivityName=".MainActivity"
+                android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH"/>
             </intent-filter>
@@ -67,7 +71,6 @@
                 android:parentActivityName=".MainActivity"
                 android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
-
 
         <provider
                 android:name=".MySuggestionProvider"

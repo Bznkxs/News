@@ -5,4 +5,13 @@
           android:icon="@drawable/ic_search"
           app:showAsAction="ifRoom|collapseActionView"
           app:actionViewClass="androidx.appcompat.widget.SearchView"/>
+    <item android:id="@+id/action_chgtab"
+          android:title="调整新闻标签页"
+          app:showAsAction="never"/>
+    <item android:id="@+id/action_viewcache"
+          android:title="查看已缓存的内容"
+          app:showAsAction="never"/>
+    <item android:id="@+id/action_delsearch"
+          android:title="清除搜索记录"
+          app:showAsAction="never"/>
 </menu>

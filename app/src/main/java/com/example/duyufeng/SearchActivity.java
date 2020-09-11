@@ -22,6 +22,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 
 // TODO: 这是搜索界面。需要完成doMySearch()函数。
 public class SearchActivity extends AppCompatActivity {
@@ -106,7 +107,9 @@ public class SearchActivity extends AppCompatActivity {
                 recyclerView.setHasFixedSize(true);
                 LinearLayoutManager layoutManager = new LinearLayoutManager(this);
                 recyclerView.setLayoutManager(layoutManager);
-                adapter = new NewsAdapter(new LinkedList<>(Arrays.asList(list.provider.search(query))));
+                LinkedList<News> nl = new LinkedList<News>(Arrays.asList(list.provider.search(query)));
+                nl.addAll(Arrays.asList(list.providerPaper.search(query)));
+                adapter = new NewsAdapter(new LinkedList<News>(nl));
                 recyclerView.setAdapter(adapter);
 
                 break;

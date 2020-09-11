@@ -22,7 +22,14 @@ public class NodeInfo {
         if(a==null) return;
         for(int i=0;i<a.length();++i){
             String key=a.getString(i);
-            String val=o.getString(key);
+            String val="";
+            JSONArray _test=o.optJSONArray(key);
+            if(_test==null) val=o.getString(key);
+            else {
+                for(int j=0;j<_test.length();++j){
+                    val+=_test.getString(j)+"\n";
+                }
+            }
             prop.put(key,val);
         }
     }

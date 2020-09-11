@@ -35,6 +35,7 @@ public class NewsTabFragment extends Fragment {
     private NewsViewModel dataViewModel;
     private RecyclerView recyclerView;
     private NewsAdapter adapter;
+    NewsProvider provider;
     String typeFilter;
 
 
@@ -55,54 +56,22 @@ public class NewsTabFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         dataViewModel = new ViewModelProvider(getActivity()).get(NewsViewModel.class);
+
         try {
-            dataViewModel.provider = new NewsProvider(this.getActivity().getApplicationContext());
-            ((myApplication)getActivity().getApplication()).provider = dataViewModel.provider;
+            provider = new NewsProvider(this.getActivity().getApplicationContext());
+            provider.setRequestType(typeFilter);
+            if (typeFilter.equals("news")) {
+                dataViewModel.provider = provider;
+                ((myApplication) getActivity().getApplication()).provider = provider;
+            }
+            else {
+                dataViewModel.providerPaper = provider;
+                ((myApplication) getActivity().getApplication()).providerPaper = provider;
+            }
+
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        int j = 1;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        int i = 1;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        adapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        int i = 1;
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        int i = 1;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        int i = 1;
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        int i = 1;
     }
 
     @Override
@@ -122,7 +91,7 @@ public class NewsTabFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        adapter = new NewsAdapter(dataViewModel.getNewsItems().getValue(), typeFilter);
+        adapter = new NewsAdapter(dataViewModel.getNewsItems(typeFilter).getValue(), typeFilter);
         recyclerView.setAdapter(adapter);
 
         SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipe_refresh_layout);
@@ -136,7 +105,7 @@ public class NewsTabFragment extends Fragment {
             @Override
             public void onRefresh() {
                 // 刷新数据。这里调用的是最新的数据
-                dataViewModel.loadLatestNewsItems();
+                dataViewModel.loadLatestNewsItems(typeFilter);
             }
         });
 
@@ -148,7 +117,7 @@ public class NewsTabFragment extends Fragment {
             public void onLoadMore() {
                 adapter.setLoadState(adapter.LOADING);
 
-                if (dataViewModel.getNewsItems().getValue().size() < 44444) {
+                if (dataViewModel.getNewsItems(typeFilter).getValue().size() < 44444) {
                     // 模拟获取网络数据，延时1s
                     new Timer().schedule(new TimerTask() {
                         @Override
@@ -157,7 +126,7 @@ public class NewsTabFragment extends Fragment {
                                 @Override
                                 public void run() {
                                     // 这里是更多数据
-                                    dataViewModel.loadMoreNewsItems();
+                                    dataViewModel.loadMoreNewsItems(typeFilter);
                                     adapter.setLoadState(adapter.LOADING_COMPLETE);
                                 }
                             });
@@ -170,16 +139,16 @@ public class NewsTabFragment extends Fragment {
             }
         });
 
-        dataViewModel.getNewsItems().observe(getViewLifecycleOwner(), new Observer<LinkedList<News>>() {
+        dataViewModel.getNewsItems(typeFilter).observe(getViewLifecycleOwner(), new Observer<LinkedList<News>>() {
             @Override
             public void onChanged(LinkedList<News> news) {
                 adapter.notifyDataSetChanged();
                 adapter.refresh();
 
                 myApplication list = (myApplication)(Objects.requireNonNull(getActivity()).getApplication());
-                list.list = dataViewModel.getNewsItems().getValue();
+                list.list = dataViewModel.getNewsItems(typeFilter).getValue();
 
-                if (!dataViewModel.firstrun)
+                if (!dataViewModel.isFirstrun(typeFilter))
                     // 延时1s关闭下拉刷新
                     swipeRefreshLayout.postDelayed(new Runnable() {
                         @Override
@@ -194,7 +163,7 @@ public class NewsTabFragment extends Fragment {
 
 
         myApplication list = (myApplication)(Objects.requireNonNull(getActivity()).getApplication());
-        list.list = dataViewModel.getNewsItems().getValue();
+        list.list = dataViewModel.getNewsItems(typeFilter).getValue();
         return root;
 
     }
