@@ -23,18 +23,6 @@ public class NewsViewModel extends ViewModel {
 
     public NewsProvider provider,providerPaper; // 需要赋值给它
 
-    LinkedList<News> _getNewsItemList(String type) {
-        if (type.equals("paper"))
-            return newsItemListPaper;
-        return newsItemList;
-    }
-
-    MutableLiveData<LinkedList<News>> _getNewsItems(String type) {
-        if (type.equals("paper"))
-            return newsItemsPaper;
-        return newsItems;
-    }
-
 
     public NewsViewModel() { newsItemList = new LinkedList<>();newsItemListPaper = new LinkedList<>(); }
     public NewsViewModel(NewsViewModel model) {
@@ -59,7 +47,7 @@ public class NewsViewModel extends ViewModel {
                 newsItemsPaper = new MutableLiveData<>();
                 newsItemListPaper.clear();
                 newsItemListPaper.addAll(providerPaper.pool);
-                newsItemsPaper.setValue(newsItemList);
+                newsItemsPaper.setValue(newsItemListPaper);
                 loadLatestNewsItems(type);
             }
             return newsItemsPaper;

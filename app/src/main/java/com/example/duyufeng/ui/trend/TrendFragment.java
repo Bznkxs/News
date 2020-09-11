@@ -40,11 +40,20 @@ public class TrendFragment extends Fragment {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            //words = eachline.split(" "); // 第一行：关键词
+            String [] words = eachline.split(" "); // 第一行：关键词
+            try {
+                eachline = bufferedReader.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             while (eachline != null) {
-                String[] words = eachline.split(" ");
                 try {
                     eachline = bufferedReader.readLine();
+                    // 每行一个新闻
+                    for (String s : words) {
+
+                    }
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
