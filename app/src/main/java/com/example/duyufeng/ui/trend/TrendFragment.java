@@ -13,6 +13,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import com.example.duyufeng.R;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 public class TrendFragment extends Fragment {
 
     private TrendViewModel trendViewModel;
@@ -22,15 +27,32 @@ public class TrendFragment extends Fragment {
         trendViewModel =
                 new ViewModelProvider(getActivity()).get(TrendViewModel.class);
         View root = inflater.inflate(R.layout.fragment_trend, container, false);
-        /*final TextView textView = root.findViewById(R.id.text_dashboard);
-        trendViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
 
-         */
+        int [] resources = new int[] { R.raw.r0, R.raw.r1, R.raw.r2, R.raw.r3, R.raw.r4 };
+
+        for (int i : resources) {
+            // 读入聚类信息
+            InputStream inputStream = getResources().openRawResource(i);
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+            String eachline = null;
+            try {
+                eachline = bufferedReader.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            //words = eachline.split(" "); // 第一行：关键词
+            while (eachline != null) {
+                String[] words = eachline.split(" ");
+                try {
+                    eachline = bufferedReader.readLine();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        getResources().getString(R.raw.r0);
+
         return root;
     }
 }
