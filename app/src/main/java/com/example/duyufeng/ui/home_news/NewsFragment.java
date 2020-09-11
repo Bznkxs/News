@@ -52,7 +52,7 @@ public class NewsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Toast.makeText(this.getContext(), "RESUME", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this.getContext(), "RESUME", Toast.LENGTH_SHORT).show();
         sectionsPagerAdapter.setConfiguration(((myApplication) getActivity().getApplication()).tabConfig);
         sectionsPagerAdapter.notifyDataSetChanged();
 

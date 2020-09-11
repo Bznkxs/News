@@ -87,7 +87,7 @@ public class SearchActivity extends AppCompatActivity {
 
             case R.id.navigation_graph:
                 // TODO: 图谱搜索
-                Toast.makeText(this, "Query graph: " + query, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Query graph: " + query, Toast.LENGTH_SHORT).show();
 
 
 

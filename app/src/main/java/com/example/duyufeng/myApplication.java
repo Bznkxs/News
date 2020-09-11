@@ -2,6 +2,8 @@ package com.example.duyufeng;
 
 import android.app.Application;
 import com.example.duyufeng.ui.main.SectionsPagerAdapter;
+import com.example.duyufeng.ui.trend.Texts;
+import com.example.duyufeng.ui.trend.Words;
 
 import java.util.LinkedList;
 
@@ -13,6 +15,8 @@ public class myApplication extends Application {
     public int navId;
     public News detailNews;
     public PersonInfo personInfo;
+    public Words words;
+    public Texts texts;
 
     public int tabConfig = 3;
     public SectionsPagerAdapter adapter;

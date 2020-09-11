@@ -1,9 +1,13 @@
 package com.example.duyufeng.ui.trend;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class WordMap {
-    static Map<String, WrpClass> map;
+    static Map<String, WrpClass> map = new HashMap<>();
 
 
     static class WrpClass {
@@ -41,5 +45,26 @@ public class WordMap {
 
     static void putTexts(String sw, Texts w) {
         map.put(sw, new WrpClass(w));
+    }
+
+    static Words[] getAllWords() {
+
+        WrpClass[] cls = new ArrayList<WrpClass>(map.values()).toArray(new WrpClass[0]);
+        ArrayList<Words> words = new ArrayList<>();
+        for (WrpClass c : cls) {
+            if (c.w != null)
+                words.add(c.w);
+        }
+        return words.toArray(new Words[0]);
+    }
+
+    static Texts[] getAllTexts() {
+        WrpClass[] cls = new ArrayList<WrpClass>(map.values()).toArray(new WrpClass[0]);
+        ArrayList<Texts> texts = new ArrayList<>();
+        for (WrpClass c : cls) {
+            if (c.t != null)
+                texts.add(c.t);
+        }
+        return texts.toArray(new Texts[0]);
     }
 }

@@ -7,13 +7,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Words {
-    String w;
-    Set<Texts> news;
+    public String w;
+    public Set<Texts> news;
 
-    Words(String ws) { w = ws; WordMap.putWords(ws, this); news = new HashSet<>();
+    public Words(String ws) { w = ws; WordMap.putWords(ws, this); news = new HashSet<>();
     }
 
     public Texts[] getNews() {
-        return (Texts[]) news.toArray();
+        return news.toArray(new Texts[0]);
     }
 }

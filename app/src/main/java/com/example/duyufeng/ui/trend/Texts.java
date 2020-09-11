@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.Set;
 
 public class Texts {
-    String t;
-    Set<Words> words;
-    Texts(String ws) { t = ws; WordMap.putTexts(ws, this); words = new HashSet<>();
+    public String t;
+    public Set<Words> words;
+    public Texts(String ws) { t = ws; WordMap.putTexts(ws, this); words = new HashSet<>();
     }
 
     public Words[] getWords() {
-        return (Words[]) words.toArray();
+        return words.toArray(new Words[0]);
     }
 }

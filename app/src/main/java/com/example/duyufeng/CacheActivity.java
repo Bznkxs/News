@@ -106,7 +106,7 @@ public class CacheActivity extends AppCompatActivity {
             });
         }
         else { // 16908332
-            Toast.makeText(this, String.valueOf(item.getItemId()), Toast.LENGTH_SHORT).show();
+            // Toast.makeText(this, String.valueOf(item.getItemId()), Toast.LENGTH_SHORT).show();
             finish();
         }
         return true;
